@@ -4,12 +4,14 @@ import { projects } from "@/content/projects";
 import { experience } from "@/content/identity";
 import { text, localPath } from "@/content/copy";
 import { Site, CaseLink, Metrics } from "./Site";
+import { Tools } from "./Tools";
+import { FieldNotes } from "./FieldNotes";
 import { Media } from "./Media";
 export function Home({ locale }: { locale: Locale }) {
   const t = text(locale);
   return (
     <Site locale={locale}>
-      <section className="intro section">
+      <section className="intro section" id="intro">
         <div className="intro-top">
           <span>{t.role}</span>
           <span>{t.location}</span>
@@ -38,6 +40,7 @@ export function Home({ locale }: { locale: Locale }) {
             <figcaption>Growth, by design.</figcaption>
           </figure>
         </div>
+        <FieldNotes locale={locale} inline />
       </section>
       <section className="profile section" id="profile">
         <div className="profile-copy">
@@ -83,18 +86,20 @@ export function Home({ locale }: { locale: Locale }) {
         {projects.map((p) => (
           <article
             key={p.slug}
+            id={"work-" + p.slug}
+            data-project={p.slug}
             className={"project-spread section project-" + p.slug}
           >
             <div className="project-top">
               <span className="project-number">{p.number}</span>
-              <span>
-                {p.industry[locale]}
-                {p.type ? " / " + p.type : ""}
-              </span>
             </div>
             <h2>
               <a href={localPath(locale, `/work/${p.slug}/`)}>{p.company}</a>
             </h2>
+            <p className="project-category">
+              {p.industry[locale]}
+              {p.type ? " / " + p.type : ""}
+            </p>
             <div className="project-details">
               <div className="project-facts">
                 {p.role && (
@@ -151,6 +156,19 @@ export function Home({ locale }: { locale: Locale }) {
           <h2>{t.approach}</h2>
           <p>{t.approachIntro}</p>
         </div>
+        <div className="practice-line">
+          <span>{locale === "en" ? "PLAN IT" : "RENCANAKAN"}</span>
+          <span>{locale === "en" ? "LAUNCH IT" : "JALANKAN"}</span>
+          <span>{locale === "en" ? "BUILD IT" : "BANGUN"}</span>
+          <span>{locale === "en" ? "PUBLISH IT" : "TERBITKAN"}</span>
+          <span>{locale === "en" ? "MEASURE IT" : "UKUR"}</span>
+          <span>{locale === "en" ? "IMPROVE IT" : "PERBAIKI"}</span>
+        </div>
+        <p className="journey-bridge">
+          {locale === "en"
+            ? "Plan the journey. Launch campaigns and publish content to earn attention. Build the experience. Measure the action. Improve with what you learn."
+            : "Rencanakan perjalanannya. Jalankan campaign dan terbitkan konten untuk menarik perhatian. Bangun pengalaman. Ukur tindakannya. Perbaiki dari hasil yang dipelajari."}
+        </p>
         <ol className="journey">
           {t.steps.map(([name, tools, note], i) => (
             <li key={name}>
@@ -217,10 +235,23 @@ export function Home({ locale }: { locale: Locale }) {
       <section className="capabilities section" id="capabilities">
         <div className="section-heading">
           <p className="eyebrow">{t.capabilities}</p>
+          <h2>
+            {locale === "en"
+              ? "Marketing at the core. Hands-on across the stack."
+              : "Berpusat pada pemasaran. Terlibat langsung di setiap tahap."}
+          </h2>
+          <p>
+            {locale === "en"
+              ? "Strategy and acquisition lead the work. Web, search, content, and data connect the pieces. Creative editing and on-camera content are practical support when a campaign needs them."
+              : "Strategi dan akuisisi menjadi inti pekerjaan saya. Web, pencarian, konten, dan data menghubungkan tiap bagian. Editing kreatif dan konten di depan kamera menjadi dukungan praktis saat campaign membutuhkannya."}
+          </p>
         </div>
         <div className="capability-list">
           {t.capabilityGroups.map(([name, items], i) => (
-            <div key={String(name)}>
+            <div
+              key={String(name)}
+              className={i < 2 ? "capability-core" : "capability-support"}
+            >
               <h3>
                 <span>0{i + 1}</span>
                 {name as string}
@@ -234,6 +265,7 @@ export function Home({ locale }: { locale: Locale }) {
           ))}
         </div>
       </section>
+      <Tools locale={locale} />
       <section className="archive section" id="archive">
         <div className="section-heading">
           <p className="eyebrow">{t.archive}</p>

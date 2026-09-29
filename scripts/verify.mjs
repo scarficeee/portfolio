@@ -13,6 +13,13 @@ for(const locale of ['en','id']) for(const route of routes){
  if(route==='/'||route.includes('japanect'))for(const value of ['+120%','+80%','+50%','+40%'])assert(html.includes(value),'Missing '+value+' on '+url);
  if(route==='/'||route.includes('kurnia-group'))for(const value of ['+1,010%','+100%'])assert(html.includes(value),'Missing '+value+' on '+url);
  assert(!/\+60%|\+25%|\+20%|\+505%/.test(html),'Outdated metrics: '+url);
+ assert(!/freelance|Awaiting source files|Documentation to follow|Dates will be added|Image unavailable|\bTBD\b/i.test(html),'Unwanted public copy: '+url);
+ assert(html.includes('field-notes-rail')&&html.includes('contact-primary'),'Missing notes/contact: '+url);
+ if(route==='/') {
+  assert(html.includes('Full-Stack Digital Marketer'),'Missing positioning: '+url);
+  assert((html.match(/class="tool-item"/g)||[]).length===9,'Wrong tool count: '+url);
+  assert((html.match(/class="capability-(?:core|support)"/g)||[]).length===7,'Wrong capability count: '+url);
+ }
  const ids=new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]));
  for(const [,href] of html.matchAll(/href="([^"]+)"/g)){
   if(href.startsWith('#'))assert(ids.has(href.slice(1)),'Missing anchor '+url+href);
@@ -20,4 +27,5 @@ for(const locale of ['en','id']) for(const route of routes){
  }
 }
 assert(fs.existsSync('out/404.html'),'Missing 404');
+for(const icon of ['meta','googleads','googleanalytics','googlesearchconsole','html5','css','javascript','python','canva']) assert(fs.existsSync('out/icons/'+icon+'.svg'),'Missing tool icon: '+icon);
 console.log('PASS: 12 bilingual routes, metadata, exact metrics, internal links and anchors, no test or internal content.');

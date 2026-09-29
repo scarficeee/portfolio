@@ -1,20 +1,24 @@
 import type { ReactNode } from "react";
 import type { Locale, Project } from "@/content/types";
 import { text, localPath } from "@/content/copy";
+import { FieldNotes } from "./FieldNotes";
 import { Chrome } from "./Chrome";
 import { Contact } from "./Contact";
 export function Site({
   locale,
   children,
   className = "",
+  project,
 }: {
   locale: Locale;
   children: ReactNode;
   className?: string;
+  project?: Project;
 }) {
   return (
     <>
       <Chrome locale={locale} />
+      <FieldNotes locale={locale} project={project} />
       <main id="main" className={className}>
         {children}
         <Contact locale={locale} />

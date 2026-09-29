@@ -11,7 +11,7 @@ export function Root({
   return (
     <html lang={locale} suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#eeeae2" />
+        <meta name="theme-color" content="#f2eee6" />
         <script
           dangerouslySetInnerHTML={{
             __html:

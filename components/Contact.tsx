@@ -30,39 +30,66 @@ export function Contact({ locale }: { locale: Locale }) {
     <>
       <footer id="contact" className="contact section">
         <div className="eyebrow">RIFALDY RIZQYA</div>
-        <div className="contact-grid">
-          <div>
-            <h2>{t.contact}</h2>
-            <p className="availability">{t.availability}</p>
-            <button
-              className="text-link"
-              onClick={() => {
-                setReview(false);
-                setNotice("");
-                setOpen(true);
-              }}
-            >
-              {t.brief} ↗
-            </button>
-          </div>
-          <address>
-            <p>{t.location}</p>
-            <a href={"mailto:" + identity.email}>{identity.email}</a>
-            <button onClick={() => copy(identity.email)}>{t.copyEmail}</button>
+        <div className="contact-heading">
+          <h2>{t.contact}</h2>
+          <p className="availability">{t.availability}</p>
+        </div>
+        <div className="contact-rows">
+          <button
+            className="contact-row contact-primary"
+            onClick={() => {
+              setReview(false);
+              setNotice("");
+              setOpen(true);
+            }}
+          >
+            <span className="contact-number">01</span>
+            <span>
+              {t.brief}
+              <small>Growth / Web / Search / Content</small>
+            </span>
+            <span className="contact-arrow" aria-hidden="true">
+              ↗
+            </span>
+          </button>
+          {[
+            {
+              label: t.email,
+              href: "mailto:" + identity.email,
+              note: identity.email,
+            },
+            {
+              label: "WhatsApp",
+              href: "https://wa.me/" + identity.whatsapp,
+              note: locale === "en" ? "A quick hello" : "Sapa saya langsung",
+            },
+            {
+              label: "LinkedIn",
+              href: identity.linkedin,
+              note: locale === "en" ? "Let’s connect" : "Mari terhubung",
+            },
+            { label: "Instagram", href: identity.instagram, note: "@izqyald" },
+          ].map((item, i) => (
             <a
-              href={"https://wa.me/" + identity.whatsapp}
-              target="_blank"
-              rel="noreferrer"
+              key={item.label}
+              className="contact-row"
+              href={item.href}
+              {...(i > 0 ? { target: "_blank", rel: "noreferrer" } : {})}
             >
-              WhatsApp ↗
+              <span className="contact-number">0{i + 2}</span>
+              <span>
+                {item.label}
+                <small>{item.note}</small>
+              </span>
+              <span className="contact-arrow" aria-hidden="true">
+                ↗
+              </span>
             </a>
-            <a href={identity.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn ↗
-            </a>
-            <a href={identity.instagram} target="_blank" rel="noreferrer">
-              Instagram ↗
-            </a>
-          </address>
+          ))}
+        </div>
+        <div className="contact-details">
+          <span>{t.location} / GMT+7</span>
+          <button onClick={() => copy(identity.email)}>{t.copyEmail}</button>
         </div>
         <div className="footer-line">
           <span>Growth, by design.</span>

@@ -2,6 +2,7 @@ import type { Locale, Project } from "@/content/types";
 import { projects } from "@/content/projects";
 import { text, localPath } from "@/content/copy";
 import { Site, Metrics } from "./Site";
+import { FieldNotes } from "./FieldNotes";
 import { Documentation } from "./Documentation";
 export function Case({
   project: p,
@@ -25,7 +26,7 @@ export function Case({
   const docs = p.documentation.filter((d) => !d.evidence),
     evidence = p.documentation.filter((d) => d.evidence);
   return (
-    <Site locale={locale} className={"case case-" + p.slug}>
+    <Site locale={locale} project={p} className={"case case-" + p.slug}>
       <header className="case-intro section">
         <a className="caption" href={localPath(locale, "/#work")}>
           ← {t.caseIndex}
@@ -55,6 +56,7 @@ export function Case({
             </div>
           )}
         </dl>
+        <FieldNotes locale={locale} project={p} inline />
         <nav
           className="chapter-nav"
           aria-label={locale === "en" ? "Case chapters" : "Bagian studi kasus"}

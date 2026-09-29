@@ -26,16 +26,23 @@ The production website is exported to `out/`. Publish that folder, not the sourc
 - `content/projects.ts`: the single source of project facts, numbers, roles, dates, story copy and documents.
 - `content/copy.ts`: EN/ID navigation, profile, homepage, labels, forms and empty states.
 - `content/identity.ts`: contact information and earlier experience.
+- `content/tools.ts`: the nine confirmed tools, icons, and English/Indonesian usage notes.
 - `content/types.ts`: the content schema and allowed fields.
 - `components/Home.tsx`: homepage composition.
 - `components/Case.tsx`: shared case-study layout.
 - `components/Documentation.tsx`: curated gallery, full archive and lightbox.
 - `components/Chrome.tsx`: navigation, language and reading preferences.
 - `components/Contact.tsx`: contact and reviewable email brief.
+- `components/FieldNotes.tsx`: contextual desktop notes, with inline summaries on smaller screens. Project scope and metrics come directly from project data; evidence links appear only when a matching document exists.
+- `components/Tools.tsx`: monochrome tool index. Notes remain readable on touch devices.
 - `styles/globals.css`: visual system and responsive layouts. Tailwind is also available in component class names.
 - `app/(en)` and `app/(id)`: small route wrappers. Both languages share all layout components.
 
 English is at `/` and `/work/<slug>/`. Indonesian is at `/id/` and `/id/work/<slug>/`. The language switch keeps the current project and anchor, restores the reading position where practical, and saves the preference locally. Internal links keep the active language; a direct URL always respects its explicit language. Root URLs default to English.
+
+The main positioning is Full-Stack Digital Marketer, with digital marketing and growth as the core. The seven capability groups live in `content/copy.ts`. Edit the `en` object for English and the `id` object for Indonesian. Creative editing and on-camera content are supporting skills. The conversation form also supports professional roles and collaboration; it only prepares a reviewable email draft.
+
+Tool SVGs are vendored from Simple Icons (16.33.0; Canva from 11.15.0), under CC0. The license is in `public/icons/LICENSE.md`. Brand names and marks belong to their owners. No icon library or external font request is required at runtime.
 
 ## Replace the profile photograph
 
