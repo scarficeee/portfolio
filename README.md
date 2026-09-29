@@ -1,50 +1,74 @@
-# Rifaldy Rizqya — Growth, by design.
+﻿# Rifaldy Rizqya — Digital Work Archive
 
-A complete responsive portfolio built with lightweight HTML, CSS, and JavaScript. It needs no installation or build step. Open `dist/index.html` in a browser, or serve `dist` using any static host.
+The existing portfolio redesigned as a Japanese editorial casebook. Same Site, same address.
 
-## Structure and visitor journey
+## Edit and build
 
-1. **Hero:** introduces Rifaldy, his growth and development positioning, location, and direct paths to work and contact.
-2. **Selected work:** four editorial cards for Japanect, Jaya Utama Perkasa, Casadela Canggu, and Ladela.id. Native expandable panels show role details and support future challenge, actions, results, and tools.
-3. **About:** the personal story and connection between strategic thinking and practical execution.
-4. **Services:** four outcome-focused offerings cover performance marketing, websites, analytics, and content/brand direction.
-5. **Experience:** nine selected roles. Dates can be added without changing the layout.
-6. **Skills and foundation:** categorized skills, education, languages, and a quiet certifications accordion.
-7. **Contact:** working email, WhatsApp, LinkedIn, and Instagram links, plus city-level location.
+- `src/data.mjs`: canonical identity, project stories, metrics, experience, credentials, documentation and evidence.
+- `build.mjs`: static HTML generator for the cover, five case pages, 404 and sitemap.
+- `dist/styles.css`: editorial composition, responsive layouts and restrained motion.
+- `dist/app.js`: menus, reading preferences, evidence viewer and project correspondence.
+- `dist/hero.png`: conceptual artwork, not client documentation.
+- `.openai/hosting.json`: existing Site identity. Preserve its project_id.
 
-## Visual direction
+Run `node build.mjs`, then `node verify.mjs`. Publish `dist` through the existing Site. No dependency installation is required. Content and navigation are rendered in HTML and remain readable without JavaScript.
 
-Contemporary Japanese editorial design: warm ivory (#eeece5), charcoal (#242722), deep indigo (#252f49), and muted crimson (#a44335). Manrope and DM Sans pair with italic Georgia for contrast. Generous spacing, fine rules, understated kanji, typography-led project covers, and one original AI-generated architectural image carry the visual identity. Project title panels are editorial treatments, not supplied corporate logos or screenshots of completed client sites.
+## Case routes
 
-Motion is limited to gentle entrance transitions and hover feedback. Reduced-motion preferences are respected. Native details/summary controls support keyboard interaction; visible focus styles and a skip link support navigation.
+/work/japanect/
+/work/jaya-utama-perkasa/
+/work/casadela/
+/work/ladela/
+/work/kurnia-group/
 
-## Editable files
+The index, professional experience and next-case navigation link to these dedicated pages.
 
-- `dist/index.html` — page metadata, navigation, and hero copy.
-- `dist/content.js` — project details, professional roles, services, skills, education, languages, and certifications.
-- `dist/app.js` — section templates, remaining website copy, and scroll reveals.
-- `dist/styles.css` — palette, typography, layouts, and responsive rules.
-- `dist/hero.png` — original architectural artwork.
-- `.openai/hosting.json` — existing Site identity and static output configuration. Keep the project ID when publishing changes to this Site.
+## Evidence and documentation
 
-All website copy is included directly in these readable source files. No framework, dependency installation, or secret credentials are required. This lightweight implementation was chosen for a fast, maintainable one-page portfolio.
+Add original assets under `dist/evidence/<case-slug>/`. Add records to that project's `evidence` array in src/data.mjs. Use `documentation` for visual working examples rather than proof; both arrays use this schema:
 
-## Content awaiting your factual references
+```js
+{
+  id: 'E-01',
+  type: 'gallery', // image, gallery, comparison, document
+  title: 'Campaign reporting',
+  source: 'Original reporting platform',
+  date: 'Confirmed reporting date or period',
+  description: 'What this material demonstrates.',
+  caption: 'Context, scope and measurement notes.',
+  redacted: false,
+  layout: 'wide', // wide, detail, contact
+  images: [{
+    src: '/evidence/japanect/report.webp',
+    alt: 'Describe the visible reporting information',
+    caption: 'Specific image context'
+  }],
+  file: {url:'/evidence/japanect/report.pdf',label:'Open report'},
+  metricLabels: ['Awareness']
+}
+```
 
-Only the written brief was supplied; the referenced profile screenshots were not attached. Therefore the site does not invent dates, metrics, campaign budgets, project deliverables, certificate names, graduation dates, grades, or language proficiency levels.
+Omit images or file when unused. Comparison records use exactly two images: before then after. Keep screenshots legible and uncropped. The fullscreen viewer supports gallery navigation, arrow keys, Escape, focus restoration, zoom and opening originals. metricLabels links a result to its evidence; use the exact metric label. Redact sensitive information in the actual asset before publication; the redacted flag only displays a caption.
 
-Update the following in `dist/content.js` when you have the verified information:
+After adding files and records, rebuild and verify. Evidence is added through source files; there is no upload admin or database.
 
-- Each project's `objective`, `actions`, `results`, and `tools`. Until then, the role is shown and the panel says the detailed case study is being prepared.
-- Each experience entry's `period`, and the exact Japantrips job titles. The list is selected experience, not a claim about chronological order or current employment.
-- `certifications`: add objects with `name`, `issuer`, optional `year`, and optional `url`.
-- Education `program`, `period`, and `grade`.
-- Language `level` values.
+## Content integrity
 
-Null fields are hidden. The certifications accordion has a short editable notice until verified certificates are entered. Skills and service offerings follow the brief and should be reviewed with the profile references.
+Japanect: +120% awareness, +80% leads, +50% organic growth, +40% bookings.
+Kurnia Group: +1,010% awareness and +100% leads.
 
-## Hosting and contact behavior
+These are owner-supplied figures. Reporting periods, baselines and supporting files are not yet supplied. Other projects have no invented numeric results. Missing dates, campaign objectives, execution details, reflections and credentials remain explicitly pending in the content model. Replace null values only with confirmed information. The edition year is not an employment date.
 
-The deployed Site starts private to its owner. Public sharing can be enabled separately when ready. Email opens the visitor's email application; WhatsApp opens the supplied number; social links open in a new tab. No message is automatically sent, and no form backend or analytics service is configured.
+## Interaction and access
 
-Google Fonts is the only external display dependency; system font fallbacks keep the page readable if it is unavailable. The artwork is bundled locally.
+Paper/Ink reading preference and reduced motion are saved locally. Device reduced-motion preferences are respected. The contact brief produces a reviewable, unsent email draft. Contact links and copy controls have no message-sending backend. Google Fonts is the only external display dependency; system fallbacks remain available.
+
+The Site currently uses its existing public audience. Source changes preserve that setting.
+
+## Verification
+
+`node verify.mjs` checks all six main routes, metadata, local links and anchors, exact metrics, absence of outdated figures and QA evidence, and next-case navigation.
+
+Desktop and mobile browser inspections covered all six pages, including 390 px and 320 px widths. Tested mobile index, reading mode, motion controls, brief review, Escape closing and focus restoration. Evidence gallery, comparison and document rendering were tested in a separate local QA build using clearly labelled fixtures. Those files are excluded from production.
+
+`node build.mjs --qa` generates the isolated fixture site outside this checkout, under the workspace work/evidence-qa directory. Never publish that directory as project evidence.
