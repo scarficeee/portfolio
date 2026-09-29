@@ -1,74 +1,103 @@
-﻿# Rifaldy Rizqya — Digital Work Archive
+﻿# Rifaldy Rizqya — portfolio source
 
-The existing portfolio redesigned as a Japanese editorial casebook. Same Site, same address.
+This is the actual source of the existing portfolio, migrated to Next.js, TypeScript and Tailwind CSS. It keeps the original paper, ink, indigo and vermilion casebook identity. The same Git history and Site ID are retained.
 
-## Edit and build
+## Install and run
 
-- `src/data.mjs`: canonical identity, project stories, metrics, experience, credentials, documentation and evidence.
-- `build.mjs`: static HTML generator for the cover, five case pages, 404 and sitemap.
-- `dist/styles.css`: editorial composition, responsive layouts and restrained motion.
-- `dist/app.js`: menus, reading preferences, evidence viewer and project correspondence.
-- `dist/hero.png`: conceptual artwork, not client documentation.
-- `.openai/hosting.json`: existing Site identity. Preserve its project_id.
+Install Node.js 22 or newer. Open this folder in VS Code, then open Terminal > New Terminal:
 
-Run `node build.mjs`, then `node verify.mjs`. Publish `dist` through the existing Site. No dependency installation is required. Content and navigation are rendered in HTML and remain readable without JavaScript.
+```sh
+npm install
+npm run dev
+```
 
-## Case routes
+Open http://127.0.0.1:3000. Save a source file to see your changes. Stop with Ctrl+C. To choose a different port, set the PORT environment variable before running the command.
 
-/work/japanect/
-/work/jaya-utama-perkasa/
-/work/casadela/
-/work/ladela/
-/work/kurnia-group/
+```sh
+npm run build
+npm run typecheck
+npm run verify
+```
 
-The index, professional experience and next-case navigation link to these dedicated pages.
+The production website is exported to `out/`. Publish that folder, not the source or node_modules. This is a static site with no database or email-sending server. The included development launcher uses Next.js in one process, and builds use worker threads for compatibility with restricted Windows environments.
 
-## Evidence and documentation
+## Where to edit
 
-Add original assets under `dist/evidence/<case-slug>/`. Add records to that project's `evidence` array in src/data.mjs. Use `documentation` for visual working examples rather than proof; both arrays use this schema:
+- `content/projects.ts`: the single source of project facts, numbers, roles, dates, story copy and documents.
+- `content/copy.ts`: EN/ID navigation, profile, homepage, labels, forms and empty states.
+- `content/identity.ts`: contact information and earlier experience.
+- `content/types.ts`: the content schema and allowed fields.
+- `components/Home.tsx`: homepage composition.
+- `components/Case.tsx`: shared case-study layout.
+- `components/Documentation.tsx`: curated gallery, full archive and lightbox.
+- `components/Chrome.tsx`: navigation, language and reading preferences.
+- `components/Contact.tsx`: contact and reviewable email brief.
+- `styles/globals.css`: visual system and responsive layouts. Tailwind is also available in component class names.
+- `app/(en)` and `app/(id)`: small route wrappers. Both languages share all layout components.
 
-```js
+English is at `/` and `/work/<slug>/`. Indonesian is at `/id/` and `/id/work/<slug>/`. The language switch keeps the current project and anchor, restores the reading position where practical, and saves the preference locally. Internal links keep the active language; a direct URL always respects its explicit language. Root URLs default to English.
+
+## Replace the profile photograph
+
+Place the real photo at:
+
+`public/media/profile/portrait.webp`
+
+Use a 4:5 image with the face near the upper middle. Replace the file under the same name to update it; no component edits are needed. The crop is controlled by `.portrait-media img` in styles/globals.css. If the file is missing, the site displays a designed placeholder. Rebuild before publishing changes.
+
+## Add project documentation
+
+1. Redact confidential information in the actual image or PDF.
+2. Save the safe exported file in the matching folder below.
+3. Find the project in `content/projects.ts`.
+4. Add a record to its `documentation` array.
+5. Save. The gallery, archive, captions and lightbox update together.
+
+| Project | Public asset folder |
+| --- | --- |
+| Portrait | public/media/profile/ |
+| Japanect | public/media/japanect/ |
+| Jaya Utama Perkasa | public/media/jup/ |
+| Casadela | public/media/casadela/ |
+| Ladela | public/media/ladela/ |
+| Kurnia Group | public/media/kurnia/ |
+
+Example record (use real details, not these example descriptions):
+
+```ts
 {
   id: 'E-01',
-  type: 'gallery', // image, gallery, comparison, document
-  title: 'Campaign reporting',
-  source: 'Original reporting platform',
-  date: 'Confirmed reporting date or period',
-  description: 'What this material demonstrates.',
-  caption: 'Context, scope and measurement notes.',
-  redacted: false,
-  layout: 'wide', // wide, detail, contact
-  images: [{
-    src: '/evidence/japanect/report.webp',
-    alt: 'Describe the visible reporting information',
-    caption: 'Specific image context'
-  }],
-  file: {url:'/evidence/japanect/report.pdf',label:'Open report'},
-  metricLabels: ['Awareness']
+  image: '/media/japanect/evidence-01.webp',
+  alt: { en: 'Campaign reporting dashboard', id: 'Dashboard laporan campaign' },
+  category: { en: 'Analytics', id: 'Analisis' },
+  title: { en: 'Campaign report', id: 'Laporan campaign' },
+  caption: { en: 'Explain what the document shows.', id: 'Jelaskan isi dokumennya.' },
+  source: 'Name of the original reporting platform',
+  period: 'Confirmed reporting period',
+  featured: true,
+  orientation: 'dashboard',
+  evidence: true
 }
 ```
 
-Omit images or file when unused. Comparison records use exactly two images: before then after. Keep screenshots legible and uncropped. The fullscreen viewer supports gallery navigation, arrow keys, Escape, focus restoration, zoom and opening originals. metricLabels links a result to its evidence; use the exact metric label. Redact sensitive information in the actual asset before publication; the redacted flag only displays a caption.
+`featured: true` selects a document for the curated view (up to four). Other documents remain in View all documentation. The first selected document is large, the second and third share a row on desktop, and the fourth is wide. Mobile uses one column. Images retain their original proportions; dashboards are not cropped.
 
-After adding files and records, rebuild and verify. Evidence is added through source files; there is no upload admin or database.
+Set `evidence: true` for supporting proof; other documents appear in the visual documentation chapter. Use an optional `file: '/media/japanect/report.pdf'` for a report download. For before/after, use `type: 'comparison'` and `images: ['/media/japanect/before.webp', '/media/japanect/after.webp']` instead of image. The first image is Before. The viewer supports arrows, Escape, swipe, zoom and original-image access.
 
-## Content integrity
+Available orientations: portrait, landscape, square, dashboard, wide. All text fields use `{en, id}`. Facts such as source, period and image path have only one value.
 
-Japanect: +120% awareness, +80% leads, +50% organic growth, +40% bookings.
-Kurnia Group: +1,010% awareness and +100% leads.
+To connect a result to evidence, add `evidenceId: 'E-01'` to its metric record and give the matching document `evidence: true`. No link is shown until a matching record exists.
 
-These are owner-supplied figures. Reporting periods, baselines and supporting files are not yet supplied. Other projects have no invented numeric results. Missing dates, campaign objectives, execution details, reflections and credentials remain explicitly pending in the content model. Replace null values only with confirmed information. The edition year is not an employment date.
+## Edit the story or add a project
 
-## Interaction and access
+Change `title`, `summary`, `context` and `responsibility` in the project record. Fill `objective`, `strategy`, `execution`, and `reflection` with `{en: '...', id: '...'}` when you have the real story. Null chapters and unknown periods are omitted. No dates or campaign details have been invented.
 
-Paper/Ink reading preference and reduced motion are saved locally. Device reduced-motion preferences are respected. The contact brief produces a reviewable, unsent email draft. Contact links and copy controls have no message-sending backend. Google Fonts is the only external display dependency; system fallbacks remain available.
+To add a project, copy a record in content/projects.ts, give it a unique slug and number, fill the known fields, and create its media folder. Add no made-up results; `metrics: []` is valid. The homepage, both case routes, archive links, SEO and next-case sequence are generated from the same list. Rebuild after adding a route.
 
-The Site currently uses its existing public audience. Source changes preserve that setting.
+Updated figures are centralized in projects.ts: Japanect +120% awareness, +80% leads, +50% organic growth, +40% bookings; Kurnia +1,010% awareness and +100% leads. Reporting periods and original evidence are still awaiting your files. They are not presented as independently verified analytics.
 
-## Verification
+## Safety and publishing
 
-`node verify.mjs` checks all six main routes, metadata, local links and anchors, exact metrics, absence of outdated figures and QA evidence, and next-case navigation.
+Everything inside public/ is public. Keep original confidential files outside this repository, or in ignored `/raw` or `/private` folders. Never use blur as redaction. Environment files and generated dependencies are ignored by Git. No secrets are required by this website.
 
-Desktop and mobile browser inspections covered all six pages, including 390 px and 320 px widths. Tested mobile index, reading mode, motion controls, brief review, Escape closing and focus restoration. Evidence gallery, comparison and document rendering were tested in a separate local QA build using clearly labelled fixtures. Those files are excluded from production.
-
-`node build.mjs --qa` generates the isolated fixture site outside this checkout, under the workspace work/evidence-qa directory. Never publish that directory as project evidence.
+Keep `.openai/hosting.json` and its existing project_id when updating the hosted portfolio. The existing public audience is preserved. Contact buttons open external apps; the brief is reviewed before opening an unsent email draft.
