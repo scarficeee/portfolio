@@ -3,16 +3,18 @@ import { credentials } from "@/content/credentials";
 import { projects } from "@/content/projects";
 import { Career } from "./Career";
 import { CapabilityMap } from "./CapabilityMap";
-import { text, localPath } from "@/content/copy";
+import { text, localPath, periodLabel } from "@/content/copy";
 import { Site, CaseLink, Metrics } from "./Site";
 import { Tools } from "./Tools";
-import { PerformanceGraphic } from "./PerformanceGraphic";
+import { WorkIndex } from "./WorkIndex";
+import { SectionArt } from "./SectionArt";
 import { Media } from "./Media";
 export function Home({ locale }: { locale: Locale }) {
   const t = text(locale);
   return (
     <Site locale={locale}>
       <section className="intro section" id="intro">
+        <SectionArt variant="hero" />
         <div className="intro-top">
           <span>{t.role}</span>
           <span>{t.location}</span>
@@ -36,19 +38,10 @@ export function Home({ locale }: { locale: Locale }) {
               {t.explore} ↓
             </a>
           </div>
-          <figure className="cover-study">
-            <img
-              src="/cover-study.webp"
-              alt=""
-              width="540"
-              height="360"
-              decoding="async"
-            />
-            <figcaption>Growth, by design.</figcaption>
-          </figure>
         </div>
       </section>
       <section className="profile section" id="profile">
+        <SectionArt variant="profile" />
         <div className="profile-copy">
           <p className="eyebrow">{t.profileTitle}</p>
           <h2>{t.profileLead}</h2>
@@ -92,6 +85,7 @@ export function Home({ locale }: { locale: Locale }) {
         </figure>
       </section>
       <section className="impact section" id="impact">
+        <SectionArt variant="index" />
         <div className="section-heading">
           <p className="eyebrow">{t.impact}</p>
           <h2>{t.impactIntro}</h2>
@@ -102,90 +96,16 @@ export function Home({ locale }: { locale: Locale }) {
             <div className="impact-record" key={p.slug}>
               <div className="impact-company">
                 <h3>{p.company}</h3>
-                {p.period && <span>{p.period}</span>}
+                {p.period && <span>{periodLabel(p.period, locale)}</span>}
                 <CaseLink project={p} locale={locale} />
               </div>
               <Metrics project={p} locale={locale} />
             </div>
           ))}
       </section>
-      <section id="work" className="work">
-        <div className="section section-heading">
-          <p className="eyebrow">{t.work}</p>
-          <h2>{t.workIntro}</h2>
-        </div>
-        {projects.map((p) => (
-          <article
-            key={p.slug}
-            id={"work-" + p.slug}
-            data-project={p.slug}
-            className={"project-spread section project-" + p.slug}
-          >
-            <div className="project-top">
-              <span className="project-number">{p.number}</span>
-            </div>
-            <h2>
-              <a href={localPath(locale, `/work/${p.slug}/`)}>{p.company}</a>
-            </h2>
-            <div className="project-details">
-              <div className="project-facts">
-                {p.role && (
-                  <p>
-                    <span className="caption">{t.roleLabel}</span>
-                    {p.role[locale]}
-                  </p>
-                )}
-                <p>
-                  <span className="caption">{t.industryLabel}</span>
-                  {p.industry[locale]}
-                  {p.type ? " / " + p.type : ""}
-                </p>
-                {p.period && (
-                  <p>
-                    <span className="caption">{t.period}</span>
-                    {p.period}
-                  </p>
-                )}
-              </div>
-              <div className="project-summary">
-                <p>{p.summary[locale]}</p>
-                {p.metrics.length ? (
-                  <PerformanceGraphic project={p} locale={locale} />
-                ) : (
-                  <div className="project-deliverables">
-                    <span className="caption">{t.output}</span>
-                    <ul>
-                      {p.services.map((service) => (
-                        <li key={service.en}>{service[locale]}</li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-                <CaseLink project={p} locale={locale} />
-              </div>
-            </div>
-            {p.documentation.find((d) => d.featured && d.image) && (
-              <a
-                className="project-cover"
-                href={localPath(locale, `/work/${p.slug}/#documentation`)}
-              >
-                <Media
-                  src={
-                    p.documentation.find((d) => d.featured && d.image)!.image!
-                  }
-                  alt={
-                    p.documentation.find((d) => d.featured && d.image)!.alt[
-                      locale
-                    ]
-                  }
-                  fallback={t.prepared}
-                />
-              </a>
-            )}
-          </article>
-        ))}
-      </section>
+      <WorkIndex locale={locale} />
       <section className="approach section" id="approach">
+        <SectionArt variant="journey" />
         <div className="section-heading">
           <p className="eyebrow">Growth, by design.</p>
           <h2>{t.approach}</h2>
@@ -222,6 +142,7 @@ export function Home({ locale }: { locale: Locale }) {
       <CapabilityMap locale={locale} />
       <Tools locale={locale} />
       <section className="archive section" id="archive">
+        <SectionArt variant="archive" />
         <div className="section-heading">
           <p className="eyebrow">{t.archive}</p>
           <h2>{t.archiveIntro}</h2>

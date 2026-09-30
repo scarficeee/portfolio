@@ -1,8 +1,10 @@
+import { SectionArt } from "./SectionArt";
 import { stack, toolGroups } from "@/content/tools";
 import type { Locale } from "@/content/types";
 export function Tools({ locale }: { locale: Locale }) {
   return (
     <section className="tools section" id="tools">
+      <SectionArt variant="grid" />
       <div className="section-heading">
         <p className="eyebrow">
           {locale === "en" ? "Tools / Stack" : "Tools / Perangkat"}

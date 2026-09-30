@@ -1,4 +1,5 @@
 "use client";
+import { SectionArt } from "./SectionArt";
 import { useState, type CSSProperties } from "react";
 import type { Locale } from "@/content/types";
 import { text } from "@/content/copy";
@@ -36,6 +37,7 @@ export function CapabilityMap({ locale }: { locale: Locale }) {
     t = text(locale);
   return (
     <section className="capabilities section" id="capabilities">
+      <SectionArt variant="index" />
       <div className="section-heading">
         <p className="eyebrow">{t.capabilities}</p>
         <h2>

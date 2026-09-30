@@ -1,12 +1,12 @@
 import type { Project } from "./types";
-// Current facts confirmed in the owner’s master brief. Add only safe, redacted media.
+// Current dates and facts confirmed by the portfolio owner. Public-safe media only.
 export const projects: Project[] = [
   {
     slug: "japanect",
     number: "01",
     company: "PT Japanect Consulting Indonesia",
     mediaFolder: "japanect",
-    period: null,
+    period: "Jan 2024 – Aug 2024",
     type: "B2B + B2C",
     industry: {
       en: "Consulting & travel",
@@ -79,13 +79,23 @@ export const projects: Project[] = [
       },
     ],
     documentation: [],
+    index: {
+      capabilities: {
+        en: "Paid Media · SEO · Analytics",
+        id: "Iklan · SEO · Analisis",
+      },
+      output: {
+        en: "+120% Awareness · +80% Leads",
+        id: "+120% Awareness · +80% Calon pelanggan",
+      },
+    },
   },
   {
     slug: "jaya-utama-perkasa",
     number: "02",
     company: "PT Jaya Utama Perkasa",
     mediaFolder: "jup",
-    period: null,
+    period: "Jan 2025 – present",
     type: null,
     industry: {
       en: "Growth & web development",
@@ -138,13 +148,23 @@ export const projects: Project[] = [
     reflection: null,
     metrics: [],
     documentation: [],
+    index: {
+      capabilities: {
+        en: "Web · SEO · Content",
+        id: "Web · SEO · Konten",
+      },
+      output: {
+        en: "Website + digital marketing execution",
+        id: "Website + pelaksanaan digital marketing",
+      },
+    },
   },
   {
     slug: "casadela",
     number: "03",
     company: "Casadela Canggu",
     mediaFolder: "casadela",
-    period: null,
+    period: "Apr 2026 – present",
     type: "B2C",
     industry: {
       en: "Hospitality",
@@ -190,13 +210,23 @@ export const projects: Project[] = [
     reflection: null,
     metrics: [],
     documentation: [],
+    index: {
+      capabilities: {
+        en: "Hospitality · Brand · Content",
+        id: "Hospitality · Brand · Konten",
+      },
+      output: {
+        en: "Digital marketing across the guest journey",
+        id: "Digital marketing sepanjang perjalanan tamu",
+      },
+    },
   },
   {
     slug: "ladela",
     number: "04",
-    company: "Ladela.id",
+    company: "Ladela",
     mediaFolder: "ladela",
-    period: null,
+    period: "Mar 2026 – present",
     type: null,
     industry: {
       en: "Brand & growth",
@@ -242,13 +272,23 @@ export const projects: Project[] = [
     reflection: null,
     metrics: [],
     documentation: [],
+    index: {
+      capabilities: {
+        en: "Brand · E-commerce · Creative",
+        id: "Brand · E-commerce · Kreatif",
+      },
+      output: {
+        en: "Rebranding + digital brand development",
+        id: "Rebranding + pengembangan brand digital",
+      },
+    },
   },
   {
     slug: "kurnia-group",
     number: "05",
     company: "Kurnia Group",
     mediaFolder: "kurnia",
-    period: null,
+    period: "Oct 2024 – Dec 2024",
     type: null,
     industry: {
       en: "Campaign results",
@@ -313,5 +353,15 @@ export const projects: Project[] = [
       },
     ],
     documentation: [],
+    index: {
+      capabilities: {
+        en: "Paid Media · KOL · Leads",
+        id: "Iklan · KOL · Calon pelanggan",
+      },
+      output: {
+        en: "+1,010% Awareness · +100% Leads",
+        id: "+1.010% Awareness · +100% Calon pelanggan",
+      },
+    },
   },
 ];

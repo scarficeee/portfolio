@@ -21,6 +21,10 @@ for(const locale of ['en','id']) for(const route of routes){
   assert((html.match(/class="capability-node"/g)||[]).length===7,'Wrong capability count: '+url);
   assert(!/Head of Growth Hacking|Full-Stack Growth Hacking|A portrait of Rifaldy will live here|Selected credentials are being prepared/.test(html),'Old role or development copy: '+url);
   assert(html.includes('career-timeline')&&html.includes('field-progress'),'Missing career or reading progress: '+url);
+  assert(!html.includes('Kakibudi')&&!html.includes('class="cover-study"'),'Removed entry or hero image returned: '+url);
+  assert((html.match(/class="work-index-row"/g)||[]).length===5,'Work index must have five compact rows: '+url);
+  assert(html.includes('Mar 2022')&&html.includes('Jan 2025')&&html.includes('Apr 2026'),'Missing confirmed career periods: '+url);
+  assert(html.includes(locale==='en'?'Parallel responsibilities':'Tanggung jawab paralel'),'Missing honest overlapping roles: '+url);
  }
  const ids=new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]));
  for(const [,href] of html.matchAll(/href="([^"]+)"/g)){

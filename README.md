@@ -26,11 +26,13 @@ The production website is exported to `out/`. Publish that folder, not the sourc
 - `content/projects.ts`: the single source of project facts, numbers, roles, dates, story copy and documents.
 - `content/copy.ts`: EN/ID navigation, profile, homepage, labels, forms and empty states.
 - `content/identity.ts`: contact information.
-- `content/career.ts`: portfolio-facing career titles, localized descriptions, optional periods and case links. Missing dates remain null.
+- `content/career.ts`: chronological career entries with the supplied 2022–2026 dates, localized periods and descriptions, parallel Japantrips responsibilities, and case links.
 - `content/historical.ts`: unpublished editorial reference, including historical claims that need separate confirmation. It is not imported by the website.
 - `content/tools.ts`: 25 owner-confirmed tools in nine groups, core emphasis, icons, and English/Indonesian usage notes.
 - `content/types.ts`: the content schema and allowed fields.
 - `components/Home.tsx`: homepage composition.
+- `components/WorkIndex.tsx`: five compact editorial project rows, localized capabilities and outputs, and small data-driven result bars.
+- `components/SectionArt.tsx`: lightweight decorative SVG backgrounds with related but varied geometry across the site.
 - `components/Case.tsx`: shared case-study layout.
 - `components/PerformanceGraphic.tsx`: accessible percentage bars shared by project previews and case results. Each project has one linear scale from zero to its largest reported percentage. Different measures are labelled individually; bar length does not represent raw counts or time-series data.
 - `components/Documentation.tsx`: curated gallery, full archive and lightbox.
@@ -52,7 +54,7 @@ The main positioning is Full-Stack Digital Marketer, with digital marketing and 
 
 Tool SVGs are vendored from Simple Icons (16.33.0; Canva from 11.15.0), under CC0. The license is in `public/icons/LICENSE.md`. Brand names and marks belong to their owners. No icon library or external font request is required at runtime.
 
-The hero uses the optimized `public/cover-study.webp`; sharing previews use `public/social-cover.jpg`. The original cover-study.png is retained as an editable source asset. Only Japanect and Kurnia display growth charts; projects without reported figures use scope summaries.
+The hero uses integrated abstract linework and a muted disc, without a staircase image or caption. Sharing previews use `public/social-cover.jpg`. Earlier illustration files remain source assets, but are not displayed in the hero. Only Japanect and Kurnia display growth charts; projects without reported figures use output summaries. The homepage index reads its concise capabilities and output from each project's `index` field.
 
 ## Replace the profile photograph
 
@@ -118,6 +120,7 @@ Updated figures are centralized in projects.ts: Japanect +120% awareness, +80% l
 - `npm install`, `npm run dev`, `npm run build`, `npm run typecheck`, and `npm run verify` passed.
 - EN/ID homepages checked at 1440, 1366, 1280, 1024, 820, 768, 430, 390, 375, 360 and 320px; no horizontal overflow. All five case studies checked in both languages at desktop, tablet and 320px.
 - Confirmed the seven-node capability map and keyboard selection, 25 tools in nine groups, corrected career titles, reading themes, language switching, contact review, chart values and scroll-aware contextual rails.
+- The atmosphere refinement removes the hero staircase, reduces the portrait to a 310px-wide 4:5 area on desktop, adds low-contrast section-specific linework, and replaces the large work banners with five 116px desktop rows. Career dates now reflect the supplied timeline; overlapping Japantrips responsibilities are explicit and Kakibudi is removed.
 - Gallery tested locally with temporary, clearly labelled fixtures: curated four-item view, six-item archive, desktop/mobile lightbox, navigation, zoom, Escape, focus restoration, and missing-image state. Fixtures were removed before the production build.
 - No real portrait or project documentation files were supplied in the current source. The portrait slot and documentation empty states remain intentional; real portrait cropping cannot be verified until that asset is added.
 

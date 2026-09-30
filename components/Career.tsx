@@ -1,10 +1,12 @@
 import type { Locale } from "@/content/types";
 import { career } from "@/content/career";
 import { text, localPath } from "@/content/copy";
+import { SectionArt } from "./SectionArt";
 export function Career({ locale }: { locale: Locale }) {
   const t = text(locale);
   return (
     <section className="experience section" id="experience">
+      <SectionArt variant="career" />
       <div className="section-heading">
         <p className="eyebrow">{t.experience}</p>
         <h2>
@@ -26,40 +28,46 @@ export function Career({ locale }: { locale: Locale }) {
       >
         {(locale === "en"
           ? [
-              "Tour operations",
-              "Digital marketing",
-              "Copy & data",
-              "Performance",
-              "SEO / SEM",
-              "Web",
-              "Brand leadership",
+              "Tourism & operations",
+              "Digital marketing foundation",
+              "Copy, data & performance",
+              "SEO, web & full-stack execution",
+              "Brand & marketing leadership",
             ]
           : [
-              "Operasional tur",
-              "Digital marketing",
-              "Teks & data",
-              "Performa",
-              "SEO / SEM",
-              "Web",
-              "Kepemimpinan brand",
+              "Pariwisata & operasional",
+              "Dasar digital marketing",
+              "Teks, data & performa",
+              "SEO, web & pelaksanaan full-stack",
+              "Kepemimpinan brand & pemasaran",
             ]
         ).map((s, i) => (
           <span key={s}>
-            <small>0{i + 1}</small>
+            <small>{2022 + i}</small>
             {s}
           </span>
         ))}
       </div>
       <ol className="career-timeline">
         {career.map((entry, i) => (
-          <li key={entry.name + entry.role.en}>
+          <li
+            key={entry.name + entry.role.en}
+            className={entry.slug ? "career-featured" : "career-foundation"}
+          >
             <div className="career-marker">
-              <span aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-              {entry.period && <time>{entry.period}</time>}
+              {(i === 0 ||
+                career[i - 1].start.slice(0, 4) !==
+                  entry.start.slice(0, 4)) && (
+                <strong>{entry.start.slice(0, 4)}</strong>
+              )}
+              <p>{entry.period[locale]}</p>
             </div>
             <div className="career-company">
               <h3>{entry.name}</h3>
               <p>{entry.role[locale]}</p>
+              {entry.overlap && (
+                <span className="career-overlap">{entry.overlap[locale]}</span>
+              )}
             </div>
             <div className="career-context">
               <span className="caption">{entry.tags[locale]}</span>

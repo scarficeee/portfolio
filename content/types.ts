@@ -39,6 +39,7 @@ export type Project = {
   execution: Localized | null;
   reflection: Localized | null;
   services: Localized[];
+  index: { capabilities: Localized; output: Localized };
   metrics: Metric[];
   documentation: Document[];
 };

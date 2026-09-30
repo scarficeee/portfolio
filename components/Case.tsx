@@ -1,9 +1,10 @@
 import type { Locale, Project } from "@/content/types";
 import { projects } from "@/content/projects";
-import { text, localPath } from "@/content/copy";
+import { text, localPath, periodLabel } from "@/content/copy";
 import { Site } from "./Site";
 import { PerformanceGraphic } from "./PerformanceGraphic";
 import { FieldNotes } from "./FieldNotes";
+import { SectionArt } from "./SectionArt";
 import { Documentation } from "./Documentation";
 export function Case({
   project: p,
@@ -29,6 +30,7 @@ export function Case({
   return (
     <Site locale={locale} project={p} className={"case case-" + p.slug}>
       <header className="case-intro section">
+        <SectionArt variant="case" />
         <a className="caption" href={localPath(locale, "/#work")}>
           ← {t.caseIndex}
         </a>
@@ -53,7 +55,7 @@ export function Case({
           {p.period && (
             <div>
               <dt>{t.period}</dt>
-              <dd>{p.period}</dd>
+              <dd>{periodLabel(p.period, locale)}</dd>
             </div>
           )}
         </dl>

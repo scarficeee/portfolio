@@ -1,4 +1,5 @@
 "use client";
+import { SectionArt } from "./SectionArt";
 import { useState, type FormEvent } from "react";
 import type { Locale } from "@/content/types";
 import { identity } from "@/content/identity";
@@ -29,6 +30,7 @@ export function Contact({ locale }: { locale: Locale }) {
   return (
     <>
       <footer id="contact" className="contact section">
+        <SectionArt variant="contact" />
         <div className="eyebrow">RIFALDY RIZQYA</div>
         <div className="contact-heading">
           <h2>{t.contact}</h2>

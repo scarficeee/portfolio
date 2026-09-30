@@ -15,7 +15,8 @@ export const copy = {
     profileTitle: "The person behind the work",
     profileFocus: "Focus",
     profileAcross: "Worked across",
-    profileIndustries: "B2B / Travel / Hospitality / Fashion / F&B / Consumer brands",
+    profileIndustries:
+      "B2B / Travel / Hospitality / Fashion / F&B / Consumer brands",
     performanceChange: "Growth by metric",
     percentageScale: "Shared percentage scale",
     industryLabel: "Industry",
@@ -237,7 +238,8 @@ export const copy = {
     profileTitle: "Orang di balik pekerjaannya",
     profileFocus: "Fokus",
     profileAcross: "Pengalaman di",
-    profileIndustries: "B2B / Perjalanan / Hospitality / Fashion / F&B / Brand konsumen",
+    profileIndustries:
+      "B2B / Perjalanan / Hospitality / Fashion / F&B / Brand konsumen",
     performanceChange: "Pertumbuhan per metrik",
     percentageScale: "Skala persentase yang sama",
     industryLabel: "Industri",
@@ -456,5 +458,13 @@ export const copy = {
   },
 };
 export const text = (locale: Locale) => copy[locale];
+export const periodLabel = (period: string, locale: Locale) =>
+  locale === "en"
+    ? period
+    : period
+        .replace("present", "sekarang")
+        .replaceAll("Aug", "Agu")
+        .replaceAll("Oct", "Okt")
+        .replaceAll("Dec", "Des");
 export const localPath = (locale: Locale, path = "/") =>
   (locale === "id" ? "/id" : "") + path;

@@ -4,7 +4,9 @@ export const career: {
   role: Localized;
   tags: Localized;
   note: Localized;
-  period: string | null;
+  period: Localized;
+  start: string;
+  overlap?: Localized;
   slug?: string;
 }[] = [
   {
@@ -21,23 +23,11 @@ export const career: {
       en: "Planning travel experiences and supporting their promotion.",
       id: "Merencanakan pengalaman perjalanan dan membantu promosinya.",
     },
-    period: null,
-  },
-  {
-    name: "Japantrips",
-    role: {
-      en: "Digital Marketing Intern",
-      id: "Magang Digital Marketing",
+    period: {
+      en: "Mar 2022 – Jun 2023",
+      id: "Mar 2022 – Jun 2023",
     },
-    tags: {
-      en: "Content · Campaigns",
-      id: "Konten · Campaign",
-    },
-    note: {
-      en: "Travel product promotion, SEO / SEM, content and website support.",
-      id: "Promosi produk perjalanan, SEO / SEM, konten, dan dukungan website.",
-    },
-    period: null,
+    start: "2022-03",
   },
   {
     name: "Japantrips",
@@ -53,7 +43,39 @@ export const career: {
       en: "Understanding what customers need before they book.",
       id: "Memahami kebutuhan pelanggan sebelum mereka memesan.",
     },
-    period: null,
+    period: {
+      en: "Jun 2023 – Jan 2024",
+      id: "Jun 2023 – Jan 2024",
+    },
+    start: "2023-06",
+    overlap: {
+      en: "Parallel responsibilities · Jul–Dec 2023",
+      id: "Tanggung jawab paralel · Jul–Des 2023",
+    },
+  },
+  {
+    name: "Japantrips",
+    role: {
+      en: "Digital Marketing Intern",
+      id: "Magang Digital Marketing",
+    },
+    tags: {
+      en: "Content · Campaigns",
+      id: "Konten · Campaign",
+    },
+    note: {
+      en: "Travel product promotion, SEO / SEM, content and website support.",
+      id: "Promosi produk perjalanan, SEO / SEM, konten, dan dukungan website.",
+    },
+    period: {
+      en: "Jul 2023 – Dec 2023",
+      id: "Jul 2023 – Des 2023",
+    },
+    start: "2023-07",
+    overlap: {
+      en: "Parallel responsibilities · Jul–Dec 2023",
+      id: "Tanggung jawab paralel · Jul–Des 2023",
+    },
   },
   {
     name: "Adventure Travel Group",
@@ -69,7 +91,11 @@ export const career: {
       en: "Connecting the travel plan with its day-to-day delivery.",
       id: "Menghubungkan rencana perjalanan dengan pelaksanaan sehari-hari.",
     },
-    period: null,
+    period: {
+      en: "Dec 2023 – Jan 2024",
+      id: "Des 2023 – Jan 2024",
+    },
+    start: "2023-12",
   },
   {
     name: "Vertex Pharmaceuticals",
@@ -85,7 +111,11 @@ export const career: {
       en: "Working with words and data to communicate more clearly.",
       id: "Mengolah teks dan data agar informasi lebih mudah dipahami.",
     },
-    period: null,
+    period: {
+      en: "Jan 2024 – Mar 2024",
+      id: "Jan 2024 – Mar 2024",
+    },
+    start: "2024-01",
   },
   {
     name: "PT Japanect Consulting Indonesia",
@@ -101,8 +131,12 @@ export const career: {
       en: "Connecting acquisition with leads, bookings and tour operations.",
       id: "Menghubungkan akuisisi dengan calon pelanggan, pemesanan, dan operasional tur.",
     },
-    period: null,
+    period: {
+      en: "Jan 2024 – Aug 2024",
+      id: "Jan 2024 – Agu 2024",
+    },
     slug: "japanect",
+    start: "2024-01",
   },
   {
     name: "Kurnia Group",
@@ -118,24 +152,12 @@ export const career: {
       en: "Building awareness and leads through campaign execution.",
       id: "Membangun awareness dan calon pelanggan melalui pelaksanaan campaign.",
     },
-    period: null,
+    period: {
+      en: "Oct 2024 – Dec 2024",
+      id: "Okt 2024 – Des 2024",
+    },
     slug: "kurnia-group",
-  },
-  {
-    name: "Kakibudi",
-    role: {
-      en: "Web Developer & Growth Specialist",
-      id: "Web Developer & Spesialis Growth",
-    },
-    tags: {
-      en: "Web · Growth",
-      id: "Web · Pertumbuhan",
-    },
-    note: {
-      en: "Connecting website work with growth needs.",
-      id: "Menghubungkan pekerjaan website dengan kebutuhan pertumbuhan.",
-    },
-    period: null,
+    start: "2024-10",
   },
   {
     name: "PT Jaya Utama Perkasa",
@@ -151,8 +173,12 @@ export const career: {
       en: "Bringing website development and digital marketing into one role.",
       id: "Menyatukan pengembangan website dan digital marketing dalam satu peran.",
     },
-    period: null,
+    period: {
+      en: "Jan 2025 – present",
+      id: "Jan 2025 – sekarang",
+    },
     slug: "jaya-utama-perkasa",
+    start: "2025-01",
   },
   {
     name: "Ladela",
@@ -168,8 +194,12 @@ export const career: {
       en: "Shaping brand and content across the customer journey.",
       id: "Mengarahkan brand dan konten sepanjang perjalanan pelanggan.",
     },
-    period: null,
+    period: {
+      en: "Mar 2026 – present",
+      id: "Mar 2026 – sekarang",
+    },
     slug: "ladela",
+    start: "2026-03",
   },
   {
     name: "Casadela Canggu",
@@ -185,7 +215,11 @@ export const career: {
       en: "Connecting brand communication with the guest experience.",
       id: "Menghubungkan komunikasi brand dengan pengalaman tamu.",
     },
-    period: null,
+    period: {
+      en: "Apr 2026 – present",
+      id: "Apr 2026 – sekarang",
+    },
     slug: "casadela",
+    start: "2026-04",
   },
 ];
