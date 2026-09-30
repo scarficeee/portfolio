@@ -7,6 +7,7 @@ const ids = ["profile", "work", "approach", "experience", "contact"];
 export function Chrome({ locale }: { locale: Locale }) {
   const t = text(locale),
     [menu, setMenu] = useState(false),
+    [activeSection, setActiveSection] = useState(""),
     [theme, setTheme] = useState("paper"),
     [motion, setMotion] = useState(true);
   useEffect(() => {
@@ -29,6 +30,33 @@ export function Chrome({ locale }: { locale: Locale }) {
     document.documentElement.dataset.theme = theme;
     document.documentElement.dataset.motion = motion ? "on" : "off";
   }, [theme, motion]);
+  useEffect(() => {
+    if (location.pathname.includes("/work/")) {
+      setActiveSection("work");
+      return;
+    }
+    let pending = false;
+    const update = () => {
+      pending = false;
+      const marker = window.innerHeight * 0.3;
+      const current = ids
+        .filter((id) => {
+          const node = document.getElementById(id);
+          return node && node.getBoundingClientRect().top <= marker;
+        })
+        .at(-1);
+      setActiveSection(current || "");
+    };
+    const scroll = () => {
+      if (!pending) {
+        pending = true;
+        requestAnimationFrame(update);
+      }
+    };
+    update();
+    window.addEventListener("scroll", scroll, { passive: true });
+    return () => window.removeEventListener("scroll", scroll);
+  }, []);
   const changeLanguage = (target: Locale) => {
     try {
       localStorage.setItem("rr-language", target);
@@ -87,6 +115,7 @@ export function Chrome({ locale }: { locale: Locale }) {
       {ids.map((id, i) => (
         <a
           key={id}
+          aria-current={activeSection === id ? "location" : undefined}
           href={localPath(locale, "/#" + id)}
           onClick={() => setMenu(false)}
         >

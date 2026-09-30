@@ -1,7 +1,8 @@
 import type { Locale, Project } from "@/content/types";
 import { projects } from "@/content/projects";
 import { text, localPath } from "@/content/copy";
-import { Site, Metrics } from "./Site";
+import { Site } from "./Site";
+import { PerformanceGraphic } from "./PerformanceGraphic";
 import { FieldNotes } from "./FieldNotes";
 import { Documentation } from "./Documentation";
 export function Case({
@@ -95,7 +96,7 @@ export function Case({
         {p.metrics.length > 0 && (
           <section className="case-results" id="results">
             <h2>{t.results}</h2>
-            <Metrics project={p} locale={locale} />
+            <PerformanceGraphic project={p} locale={locale} />
           </section>
         )}
         <section className="case-documentation" id="documentation">

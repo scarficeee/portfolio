@@ -30,9 +30,9 @@ export function metadata(locale: Locale, project?: Project): Metadata {
       type: "website",
       images: [
         {
-          url: "/cover-study.png",
-          width: 1536,
-          height: 1024,
+          url: "/social-cover.jpg",
+          width: 1200,
+          height: 630,
           alt: "Growth, by design. — Rifaldy Rizqya",
         },
       ],
@@ -41,7 +41,7 @@ export function metadata(locale: Locale, project?: Project): Metadata {
       card: "summary_large_image",
       title,
       description,
-      images: ["/cover-study.png"],
+      images: ["/social-cover.jpg"],
     },
     icons: { icon: "/favicon.svg" },
   };

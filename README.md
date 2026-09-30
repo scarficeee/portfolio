@@ -30,12 +30,14 @@ The production website is exported to `out/`. Publish that folder, not the sourc
 - `content/types.ts`: the content schema and allowed fields.
 - `components/Home.tsx`: homepage composition.
 - `components/Case.tsx`: shared case-study layout.
+- `components/PerformanceGraphic.tsx`: accessible percentage bars shared by project previews and case results. Each project has one linear scale from zero to its largest reported percentage. Different measures are labelled individually; bar length does not represent raw counts or time-series data.
 - `components/Documentation.tsx`: curated gallery, full archive and lightbox.
 - `components/Chrome.tsx`: navigation, language and reading preferences.
 - `components/Contact.tsx`: contact and reviewable email brief.
 - `components/FieldNotes.tsx`: contextual desktop notes, with inline summaries on smaller screens. Project scope and metrics come directly from project data; evidence links appear only when a matching document exists.
 - `components/Tools.tsx`: monochrome tool index. Notes remain readable on touch devices.
 - `styles/globals.css`: visual system and responsive layouts. Tailwind is also available in component class names.
+- `styles/professional.css`: final spacing, profile, calmer typography, charts and interaction refinements, loaded after the visual system.
 - `app/(en)` and `app/(id)`: small route wrappers. Both languages share all layout components.
 
 English is at `/` and `/work/<slug>/`. Indonesian is at `/id/` and `/id/work/<slug>/`. The language switch keeps the current project and anchor, restores the reading position where practical, and saves the preference locally. Internal links keep the active language; a direct URL always respects its explicit language. Root URLs default to English.
@@ -43,6 +45,8 @@ English is at `/` and `/work/<slug>/`. Indonesian is at `/id/` and `/id/work/<sl
 The main positioning is Full-Stack Digital Marketer, with digital marketing and growth as the core. The seven capability groups live in `content/copy.ts`. Edit the `en` object for English and the `id` object for Indonesian. Creative editing and on-camera content are supporting skills. The conversation form also supports professional roles and collaboration; it only prepares a reviewable email draft.
 
 Tool SVGs are vendored from Simple Icons (16.33.0; Canva from 11.15.0), under CC0. The license is in `public/icons/LICENSE.md`. Brand names and marks belong to their owners. No icon library or external font request is required at runtime.
+
+The hero uses the optimized `public/cover-study.webp`; sharing previews use `public/social-cover.jpg`. The original cover-study.png is retained as an editable source asset. Only Japanect and Kurnia display growth charts; projects without reported figures use scope summaries.
 
 ## Replace the profile photograph
 
@@ -102,6 +106,14 @@ Change `title`, `summary`, `context` and `responsibility` in the project record.
 To add a project, copy a record in content/projects.ts, give it a unique slug and number, fill the known fields, and create its media folder. Add no made-up results; `metrics: []` is valid. The homepage, both case routes, archive links, SEO and next-case sequence are generated from the same list. Rebuild after adding a route.
 
 Updated figures are centralized in projects.ts: Japanect +120% awareness, +80% leads, +50% organic growth, +40% bookings; Kurnia +1,010% awareness and +100% leads. Reporting periods and original evidence are still awaiting your files. They are not presented as independently verified analytics.
+
+## Final refinement verification — 30 September 2026
+
+- `npm install`, `npm run dev`, `npm run build`, `npm run typecheck`, and `npm run verify` passed.
+- EN/ID homepages checked at 1440, 1366, 1280, 1024, 820, 768, 430, 390, 375, 360 and 320px; no horizontal overflow. All five case studies checked in both languages at desktop, tablet and 320px.
+- Confirmed seven capability groups, nine tool icons, reading themes, language switching, contact review, chart values and contextual rails.
+- Gallery tested locally with temporary, clearly labelled fixtures: curated four-item view, six-item archive, desktop/mobile lightbox, navigation, zoom, Escape, focus restoration, and missing-image state. Fixtures were removed before the production build.
+- No real portrait or project documentation files were supplied in the current source. The portrait slot and documentation empty states remain intentional; real portrait cropping cannot be verified until that asset is added.
 
 ## Safety and publishing
 

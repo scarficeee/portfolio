@@ -5,7 +5,7 @@ import { experience } from "@/content/identity";
 import { text, localPath } from "@/content/copy";
 import { Site, CaseLink, Metrics } from "./Site";
 import { Tools } from "./Tools";
-import { FieldNotes } from "./FieldNotes";
+import { PerformanceGraphic } from "./PerformanceGraphic";
 import { Media } from "./Media";
 export function Home({ locale }: { locale: Locale }) {
   const t = text(locale);
@@ -36,11 +36,16 @@ export function Home({ locale }: { locale: Locale }) {
             </a>
           </div>
           <figure className="cover-study">
-            <img src="/cover-study.png" alt="" width="1536" height="1024" />
+            <img
+              src="/cover-study.webp"
+              alt=""
+              width="540"
+              height="360"
+              decoding="async"
+            />
             <figcaption>Growth, by design.</figcaption>
           </figure>
         </div>
-        <FieldNotes locale={locale} inline />
       </section>
       <section className="profile section" id="profile">
         <div className="profile-copy">
@@ -48,6 +53,16 @@ export function Home({ locale }: { locale: Locale }) {
           <h2>{t.profileLead}</h2>
           <p>{t.profileBody}</p>
           <p>{t.profileMore}</p>
+          <dl className="profile-index">
+            <div>
+              <dt>{t.profileFocus}</dt>
+              <dd>Growth / Web / Search / Content / Analytics</dd>
+            </div>
+            <div>
+              <dt>{t.profileAcross}</dt>
+              <dd>{t.profileIndustries}</dd>
+            </div>
+          </dl>
           <blockquote>{t.quote}</blockquote>
         </div>
         <figure className="portrait">
@@ -58,6 +73,21 @@ export function Home({ locale }: { locale: Locale }) {
             portrait
           />
           <figcaption>{t.portraitLabel}</figcaption>
+          <a
+            className="portrait-impact"
+            href={localPath(locale, "/work/japanect/#results")}
+          >
+            <span>{projects[0].company}</span>
+            <div>
+              {projects[0].metrics.slice(0, 2).map((m) => (
+                <span key={m.label}>
+                  <strong>{m.value}</strong>
+                  <small>{t.metricLabels[m.label]}</small>
+                </span>
+              ))}
+            </div>
+            <span>{t.viewCase} ↗</span>
+          </a>
         </figure>
       </section>
       <section className="impact section" id="impact">
@@ -96,10 +126,6 @@ export function Home({ locale }: { locale: Locale }) {
             <h2>
               <a href={localPath(locale, `/work/${p.slug}/`)}>{p.company}</a>
             </h2>
-            <p className="project-category">
-              {p.industry[locale]}
-              {p.type ? " / " + p.type : ""}
-            </p>
             <div className="project-details">
               <div className="project-facts">
                 {p.role && (
@@ -108,6 +134,11 @@ export function Home({ locale }: { locale: Locale }) {
                     {p.role[locale]}
                   </p>
                 )}
+                <p>
+                  <span className="caption">{t.industryLabel}</span>
+                  {p.industry[locale]}
+                  {p.type ? " / " + p.type : ""}
+                </p>
                 {p.period && (
                   <p>
                     <span className="caption">{t.period}</span>
@@ -117,15 +148,18 @@ export function Home({ locale }: { locale: Locale }) {
               </div>
               <div className="project-summary">
                 <p>{p.summary[locale]}</p>
-                <p className="project-output">
-                  {p.metrics.length ? (
-                    <>
-                      {p.metrics[0].value} {t.metricLabels[p.metrics[0].label]}
-                    </>
-                  ) : (
-                    p.services.map((s) => s[locale]).join(" / ")
-                  )}
-                </p>
+                {p.metrics.length ? (
+                  <PerformanceGraphic project={p} locale={locale} />
+                ) : (
+                  <div className="project-deliverables">
+                    <span className="caption">{t.output}</span>
+                    <ul>
+                      {p.services.map((service) => (
+                        <li key={service.en}>{service[locale]}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
                 <CaseLink project={p} locale={locale} />
               </div>
             </div>
