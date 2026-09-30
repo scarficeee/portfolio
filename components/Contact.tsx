@@ -31,70 +31,85 @@ export function Contact({ locale }: { locale: Locale }) {
     <>
       <footer id="contact" className="contact section">
         <SectionArt variant="contact" />
-        <div className="eyebrow">RIFALDY RIZQYA</div>
-        <div className="contact-heading">
-          <h2>{t.contact}</h2>
-          <p className="availability">{t.availability}</p>
-        </div>
-        <div className="contact-rows">
-          <button
-            className="contact-row contact-primary"
-            onClick={() => {
-              setReview(false);
-              setNotice("");
-              setOpen(true);
-            }}
+        <div className="contact-composition">
+          <div className="contact-invitation">
+            <p className="eyebrow">{t.contact}</p>
+            <p className="contact-lead">
+              {locale === "en"
+                ? "Let’s talk about where I can help."
+                : "Mari bicarakan bagaimana saya bisa membantu."}
+            </p>
+            <h2>
+              <button
+                className="contact-primary"
+                onClick={() => {
+                  setReview(false);
+                  setNotice("");
+                  setOpen(true);
+                }}
+              >
+                <span>{t.brief}</span>
+                <span className="contact-arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </button>
+            </h2>
+            <p className="availability">{t.availability}</p>
+            <p className="contact-focus">Growth · Web · Search · Content</p>
+          </div>
+          <div
+            className="contact-rows"
+            aria-label={
+              locale === "en"
+                ? "Other ways to connect"
+                : "Cara lain untuk terhubung"
+            }
           >
-            <span className="contact-number">01</span>
-            <span>
-              {t.brief}
-              <small>Growth / Web / Search / Content</small>
-            </span>
-            <span className="contact-arrow" aria-hidden="true">
-              ↗
-            </span>
-          </button>
-          {[
-            {
-              label: t.email,
-              href: "mailto:" + identity.email,
-              note: identity.email,
-            },
-            {
-              label: "WhatsApp",
-              href: "https://wa.me/" + identity.whatsapp,
-              note: locale === "en" ? "A quick hello" : "Sapa saya langsung",
-            },
-            {
-              label: "LinkedIn",
-              href: identity.linkedin,
-              note: locale === "en" ? "Let’s connect" : "Mari terhubung",
-            },
-            { label: "Instagram", href: identity.instagram, note: "@izqyald" },
-          ].map((item, i) => (
-            <a
-              key={item.label}
-              className="contact-row"
-              href={item.href}
-              {...(i > 0 ? { target: "_blank", rel: "noreferrer" } : {})}
-            >
-              <span className="contact-number">0{i + 2}</span>
-              <span>
-                {item.label}
-                <small>{item.note}</small>
-              </span>
-              <span className="contact-arrow" aria-hidden="true">
-                ↗
-              </span>
-            </a>
-          ))}
+            {[
+              {
+                label: t.email,
+                href: "mailto:" + identity.email,
+                note: identity.email,
+              },
+              {
+                label: "WhatsApp",
+                href: "https://wa.me/" + identity.whatsapp,
+                note: locale === "en" ? "A quick hello" : "Sapa saya langsung",
+              },
+              {
+                label: "LinkedIn",
+                href: identity.linkedin,
+                note: locale === "en" ? "Let’s connect" : "Mari terhubung",
+              },
+              {
+                label: "Instagram",
+                href: identity.instagram,
+                note: "@izqyald",
+              },
+            ].map((item, i) => (
+              <a
+                key={item.label}
+                className="contact-row"
+                href={item.href}
+                {...(i > 0 ? { target: "_blank", rel: "noreferrer" } : {})}
+              >
+                <span>
+                  {item.label}
+                  <small>{item.note}</small>
+                </span>
+                <span className="contact-arrow" aria-hidden="true">
+                  ↗
+                </span>
+              </a>
+            ))}
+          </div>
         </div>
-        <div className="contact-details">
-          <span>{t.location} / GMT+7</span>
+        <div className="contact-finish">
+          <div>
+            <strong>RIFALDY RIZQYA</strong>
+            <span>{t.location} / GMT+7</span>
+          </div>
           <button onClick={() => copy(identity.email)}>{t.copyEmail}</button>
-        </div>
-        <div className="footer-line">
-          <span>Growth, by design.</span>
           <a href="#main">{t.backTop} ↑</a>
         </div>
         {!open && <p role="status">{notice}</p>}

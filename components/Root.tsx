@@ -3,6 +3,10 @@ import type { Locale } from "@/content/types";
 import "@/styles/globals.css";
 import "@/styles/professional.css";
 import "@/styles/master.css";
+import "@/styles/motion.css";
+import "@/styles/documentation.css";
+import { Motion } from "./Motion";
+import { openingScript } from "./motion-preferences";
 export function Root({
   locale,
   children,
@@ -16,12 +20,14 @@ export function Root({
         <meta name="theme-color" content="#f2eee6" />
         <script
           dangerouslySetInnerHTML={{
-            __html:
-              "try{document.documentElement.dataset.theme=localStorage.getItem('rr-theme')||'paper';document.documentElement.dataset.motion=localStorage.getItem('rr-motion')||'on'}catch(e){}",
+            __html: openingScript,
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        <Motion />
+        {children}
+      </body>
     </html>
   );
 }

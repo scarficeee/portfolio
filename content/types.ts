@@ -18,6 +18,7 @@ export type Document = {
   source?: string;
   featured?: boolean;
   orientation?: "portrait" | "landscape" | "square" | "dashboard" | "wide";
+  fit?: "cover" | "contain";
   type?: "image" | "comparison" | "report";
   evidence?: boolean;
 };

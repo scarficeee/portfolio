@@ -1,4 +1,4 @@
-﻿# Rifaldy Rizqya — portfolio source
+# Rifaldy Rizqya — portfolio source
 
 This is the actual source of the existing portfolio, migrated to Next.js, TypeScript and Tailwind CSS. It keeps the original paper, ink, indigo and vermilion casebook identity. The same Git history and Site ID are retained.
 
@@ -17,6 +17,7 @@ Open http://127.0.0.1:3000. Save a source file to see your changes. Stop with Ct
 npm run build
 npm run typecheck
 npm run verify
+node scripts/verify-motion.mjs
 ```
 
 The production website is exported to `out/`. Publish that folder, not the source or node_modules. This is a static site with no database or email-sending server. The included development launcher uses Next.js in one process, and builds use worker threads for compatibility with restricted Windows environments.
@@ -31,6 +32,9 @@ The production website is exported to `out/`. Publish that folder, not the sourc
 - `content/tools.ts`: 25 owner-confirmed tools in nine groups, core emphasis, icons, and English/Indonesian usage notes.
 - `content/types.ts`: the content schema and allowed fields.
 - `components/Home.tsx`: homepage composition.
+- `components/Motion.tsx`: one-time viewport reveals and 900ms metric counts; preference changes finish counters immediately.
+- `components/motion-preferences.ts`: pre-paint loading/preferences, reduced-motion priority and short-lived internal-navigation markers. Initial loading ends at hydration/font readiness, with no minimum wait. Internal clicks use a thin line instead of the full monogram; hard refresh shows the opening state.
+- `components/Monogram.tsx`: the exact existing R/R lettering, shared by navigation and loading.
 - `components/WorkIndex.tsx`: five compact editorial project rows, localized capabilities and outputs, and small data-driven result bars.
 - `components/SectionArt.tsx`: lightweight decorative SVG backgrounds with related but varied geometry across the site.
 - `components/Case.tsx`: shared case-study layout.
@@ -46,6 +50,8 @@ The production website is exported to `out/`. Publish that folder, not the sourc
 - `styles/globals.css`: visual system and responsive layouts. Tailwind is also available in component class names.
 - `styles/professional.css`: final spacing, profile, calmer typography, charts and interaction refinements, loaded after the visual system.
 - `styles/master.css`: capability map, timeline, expanded tools and refined contextual rail. Loaded last.
+- `styles/motion.css`: shared timing, restrained graphics, row interactions and compact two-column contact hierarchy.
+- `styles/documentation.css`: normalized gallery frames and centered, bounded image dialogs.
 - `app/(en)` and `app/(id)`: small route wrappers. Both languages share all layout components.
 
 English is at `/` and `/work/<slug>/`. Indonesian is at `/id/` and `/id/work/<slug>/`. The language switch keeps the current project and anchor, restores the reading position where practical, and saves the preference locally. Internal links keep the active language; a direct URL always respects its explicit language. Root URLs default to English.
@@ -99,7 +105,9 @@ Example record (use real details, not these example descriptions):
 }
 ```
 
-`featured: true` selects a document for the curated view (up to four). Other documents remain in View all documentation. The first selected document is large, the second and third share a row on desktop, and the fourth is wide. Mobile uses one column. Images retain their original proportions; dashboards are not cropped.
+`featured: true` selects a document for the curated view (up to four). Other documents remain in View all documentation. Feature and wide frames use 16:9; paired supporting frames use equal-height 4:3 containers. Mobile uses one column, with 4:5 portrait and 1:1 square frames. The original image ratio is always preserved. Set `fit: 'contain'` for screenshots/reports or `fit: 'cover'` for creative photography; evidence, dashboard/report types and recognizable data categories default to contain. Neutral inner backgrounds make contained images intentional.
+
+The shared viewer is 78vw (maximum 1320px) on desktop, 88vw on tablet and 94vw on mobile, with an 80dvh height cap. Images use contain; optional 2× zoom provides scroll-based pan. Escape, close and backdrop click restore the previous scroll position and focus. Arrow keys and horizontal touch swipes switch images.
 
 Set `evidence: true` for supporting proof; other documents appear in the visual documentation chapter. Use an optional `file: '/media/japanect/report.pdf'` for a report download. For before/after, use `type: 'comparison'` and `images: ['/media/japanect/before.webp', '/media/japanect/after.webp']` instead of image. The first image is Before. The viewer supports arrows, Escape, swipe, zoom and original-image access.
 
@@ -122,7 +130,7 @@ Updated figures are centralized in projects.ts: Japanect +120% awareness, +80% l
 - Confirmed the seven-node capability map and keyboard selection, 25 tools in nine groups, corrected career titles, reading themes, language switching, contact review, chart values and scroll-aware contextual rails.
 - The atmosphere refinement removes the hero staircase, reduces the portrait to a 310px-wide 4:5 area on desktop, adds low-contrast section-specific linework, and replaces the large work banners with five 116px desktop rows. Career dates now reflect the supplied timeline; overlapping Japantrips responsibilities are explicit and Kakibudi is removed.
 - Gallery tested locally with temporary, clearly labelled fixtures: curated four-item view, six-item archive, desktop/mobile lightbox, navigation, zoom, Escape, focus restoration, and missing-image state. Fixtures were removed before the production build.
-- No real portrait or project documentation files were supplied in the current source. The portrait slot and documentation empty states remain intentional; real portrait cropping cannot be verified until that asset is added.
+- The supplied real portrait is installed at public/media/profile/portrait.webp and its desktop crop was checked. Project documentation files have not yet been supplied; no sample/test evidence is published.
 
 ## Safety and publishing
 

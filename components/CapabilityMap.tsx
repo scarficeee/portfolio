@@ -67,6 +67,7 @@ export function CapabilityMap({ locale }: { locale: Locale }) {
           <circle cx="350" cy="350" r="272" className="map-orbit" />
           {points.map(([x, y], i) => (
             <line
+              pathLength="1"
               key={i}
               x1="350"
               y1="350"
@@ -97,6 +98,7 @@ export function CapabilityMap({ locale }: { locale: Locale }) {
             style={
               {
                 "--x": `${points[i][0] / 7}%`,
+                "--node-order": i,
                 "--y": `${points[i][1] / 7}%`,
               } as CSSProperties
             }

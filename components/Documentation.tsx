@@ -67,6 +67,17 @@ export function Documentation({
             className={`document-item document-${i < 4 ? i : "archive"} orientation-${item.orientation || "landscape"}`}
             id={"document-" + item.id}
             key={item.id}
+            data-fit={
+              item.fit ||
+              (item.evidence ||
+              item.type === "report" ||
+              item.orientation === "dashboard" ||
+              /analytics|dashboard|spreadsheet|report|website|web screenshot|seo|analisis|laporan/i.test(
+                item.category.en,
+              )
+                ? "contain"
+                : "cover")
+            }
           >
             <div
               className={
@@ -154,6 +165,14 @@ export function Documentation({
           <div className="lightbox-content">
             <div
               className={"lightbox-stage" + (zoom ? " zoomed" : "")}
+              tabIndex={zoom ? 0 : undefined}
+              aria-label={
+                zoom
+                  ? locale === "en"
+                    ? "Zoomed image. Scroll to inspect."
+                    : "Gambar diperbesar. Gulir untuk melihat detail."
+                  : undefined
+              }
               onTouchStart={(e) => (touch.current = e.touches[0].clientX)}
               onTouchEnd={(e) => {
                 if (touch.current === null || zoom) return;
@@ -171,8 +190,8 @@ export function Documentation({
             </div>
             <div className="lightbox-meta">
               <span className="caption">
-                {t.figure} {items.indexOf(current.item) + 1} /{" "}
-                {current.item.category[locale]}
+                FIG. {String(items.indexOf(current.item) + 1).padStart(2, "0")}{" "}
+                / {current.item.category[locale]}
               </span>
               <h3>{current.item.title[locale]}</h3>
               <p>{current.item.caption[locale]}</p>

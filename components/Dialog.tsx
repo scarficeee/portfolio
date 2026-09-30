@@ -19,11 +19,14 @@ export function Dialog({
   useEffect(() => {
     const node = ref.current!;
     const previous = document.activeElement as HTMLElement;
+    const position = { top: window.scrollY, left: window.scrollX };
+    const overflow = document.body.style.overflow;
     node.showModal();
     document.body.style.overflow = "hidden";
     return () => {
       node.close();
-      document.body.style.overflow = "";
+      document.body.style.overflow = overflow;
+      window.scrollTo({ ...position, behavior: "instant" });
       previous?.focus({ preventScroll: true });
     };
   }, []);

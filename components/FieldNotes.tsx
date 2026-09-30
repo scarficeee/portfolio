@@ -30,7 +30,11 @@ export function FieldNotes({
         const current = nodes
           .filter((n) => n.getBoundingClientRect().top <= innerHeight * 0.32)
           .at(-1);
-        setContext(current?.id || "intro");
+        setContext(
+          height > 0 && scrollY >= height - 8
+            ? "contact"
+            : current?.id || "intro",
+        );
       }
     };
     const schedule = () => {

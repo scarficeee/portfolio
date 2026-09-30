@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import type { Locale } from "@/content/types";
 import { text, localPath } from "@/content/copy";
 import { Dialog } from "./Dialog";
+import { Monogram } from "./Monogram";
+import { motionEnabled, markInternalNavigation } from "./motion-preferences";
 const ids = ["profile", "work", "approach", "experience", "contact"];
 export function Chrome({ locale }: { locale: Locale }) {
   const t = text(locale),
@@ -13,7 +15,7 @@ export function Chrome({ locale }: { locale: Locale }) {
   useEffect(() => {
     try {
       setTheme(localStorage.getItem("rr-theme") || "paper");
-      setMotion(localStorage.getItem("rr-motion") !== "off");
+      setMotion(motionEnabled());
       localStorage.setItem("rr-language", locale);
       const saved = sessionStorage.getItem("rr-language-scroll");
       if (saved) {
@@ -28,8 +30,14 @@ export function Chrome({ locale }: { locale: Locale }) {
   }, [locale]);
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
-    document.documentElement.dataset.motion = motion ? "on" : "off";
-  }, [theme, motion]);
+  }, [theme]);
+  useEffect(() => {
+    const system = matchMedia("(prefers-reduced-motion: reduce)");
+    const sync = () => setMotion(motionEnabled());
+    sync();
+    system.addEventListener("change", sync);
+    return () => system.removeEventListener("change", sync);
+  }, []);
   useEffect(() => {
     if (location.pathname.includes("/work/")) {
       setActiveSection("work");
@@ -45,7 +53,11 @@ export function Chrome({ locale }: { locale: Locale }) {
           return node && node.getBoundingClientRect().top <= marker;
         })
         .at(-1);
-      setActiveSection(current || "");
+      setActiveSection(
+        scrollY >= document.documentElement.scrollHeight - innerHeight - 8
+          ? "contact"
+          : current || "",
+      );
     };
     const scroll = () => {
       if (!pending) {
@@ -66,6 +78,7 @@ export function Chrome({ locale }: { locale: Locale }) {
         "rr-language-scroll",
         JSON.stringify({ path: next, position: window.scrollY }),
       );
+      markInternalNavigation(next);
       location.assign(next + location.hash);
     } catch {
       location.assign(localPath(target));
@@ -103,6 +116,8 @@ export function Chrome({ locale }: { locale: Locale }) {
           try {
             localStorage.setItem("rr-motion", !motion ? "on" : "off");
           } catch {}
+          dispatchEvent(new Event("rr-motion-change"));
+          setMotion(motionEnabled());
         }}
       >
         {t.motion}
@@ -136,7 +151,7 @@ export function Chrome({ locale }: { locale: Locale }) {
           href={localPath(locale)}
           aria-label={"Rifaldy Rizqya — " + t.home}
         >
-          R<span>/</span>R
+          <Monogram />
         </a>
         {nav}
         <div className="side-bottom">

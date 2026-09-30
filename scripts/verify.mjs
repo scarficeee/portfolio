@@ -33,6 +33,7 @@ for(const locale of ['en','id']) for(const route of routes){
  }
 }
 assert(fs.existsSync('out/404.html'),'Missing 404');
+for(const name of ['qa-wide.svg','qa-portrait.svg','qa-square.svg']) assert(!fs.existsSync('out/'+name),'Temporary test image in production: '+name);
 for(const icon of ['meta','googleads','tiktok','googleanalytics','googletagmanager','googlesearchconsole','pagespeedinsights','ahrefs','semrush','moz','yoast','hootsuite','sproutsocial','mailchimp','html5','css','javascript','python','visualstudiocode','github','wordpress','cloudflare','canva','openai']) assert(fs.existsSync('out/icons/'+icon+'.svg'),'Missing tool icon: '+icon);
 assert(fs.existsSync('out/icons/capcut.ico'),'Missing CapCut icon');
 console.log('PASS: 12 bilingual routes, metadata, exact metrics, internal links and anchors, no test or internal content.');
