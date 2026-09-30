@@ -8,14 +8,14 @@ export const copy = {
     home: "Home",
     role: "Full-Stack Digital Marketer",
     intro:
-      "I connect marketing, websites, and data to help businesses grow — from planning the campaign to making it work.",
+      "Digital marketing and growth are my core. I connect campaigns, websites, search, content and data — from the first click to what happens next.",
     focus: "Growth · Web · Search · Content · Analytics",
     explore: "Explore the work",
     location: "Bandung, West Java, Indonesia",
     profileTitle: "The person behind the work",
     profileFocus: "Focus",
     profileAcross: "Worked across",
-    profileIndustries: "B2B / Travel / Hospitality / Consumer brands",
+    profileIndustries: "B2B / Travel / Hospitality / Fashion / F&B / Consumer brands",
     performanceChange: "Growth by metric",
     percentageScale: "Shared percentage scale",
     industryLabel: "Industry",
@@ -23,10 +23,10 @@ export const copy = {
     profileBody:
       "I’m Rifaldy Rizqya, a Full-Stack Digital Marketer based in Bandung. Digital marketing and growth are my main focus.",
     profileMore:
-      "I work across strategy, acquisition, content, websites, search, and analytics. I can plan the campaign, build its landing page, and track what happens next. I also help with the creative and operational work that keeps it moving.",
+      "I work across paid acquisition, search, websites, content and analytics. I like understanding how the whole digital journey connects, then helping put the plan to work.",
     quote:
       "I’m less interested in vanity metrics. I’m interested in what happens after someone clicks.",
-    portrait: "A portrait of Rifaldy will live here.",
+    portrait: "Rifaldy Rizqya / Bandung",
     portraitAlt: "Portrait of Rifaldy Rizqya",
     portraitLabel: "Rifaldy Rizqya / Bandung",
     impact: "Selected results",
@@ -230,14 +230,14 @@ export const copy = {
     home: "Beranda",
     role: "Full-Stack Digital Marketer",
     intro:
-      "Saya menghubungkan pemasaran, website, dan data untuk membantu bisnis berkembang, dari merencanakan campaign sampai menjalankannya.",
+      "Fokus utama saya adalah digital marketing dan pertumbuhan bisnis. Saya menghubungkan campaign, website, pencarian, konten, dan data — dari klik pertama hingga langkah berikutnya.",
     focus: "Growth · Web · Search · Content · Analytics",
     explore: "Lihat karya saya",
     location: "Bandung, Jawa Barat, Indonesia",
     profileTitle: "Orang di balik pekerjaannya",
     profileFocus: "Fokus",
     profileAcross: "Pengalaman di",
-    profileIndustries: "B2B / Perjalanan / Hospitality / Brand konsumen",
+    profileIndustries: "B2B / Perjalanan / Hospitality / Fashion / F&B / Brand konsumen",
     performanceChange: "Pertumbuhan per metrik",
     percentageScale: "Skala persentase yang sama",
     industryLabel: "Industri",
@@ -246,10 +246,10 @@ export const copy = {
     profileBody:
       "Saya Rifaldy Rizqya, Full-Stack Digital Marketer yang berbasis di Bandung. Fokus utama saya adalah digital marketing dan pertumbuhan bisnis.",
     profileMore:
-      "Saya mengerjakan strategi, iklan, konten, website, pencarian, dan analisis data. Saya bisa merencanakan campaign, membuat landing page, lalu melihat hasilnya. Saya juga ikut membantu pekerjaan kreatif dan operasional yang dibutuhkan.",
+      "Saya bekerja dengan iklan, pencarian, website, konten, dan analisis. Saya senang memahami hubungan antarbagian dalam perjalanan pelanggan, lalu ikut menjalankan rencananya.",
     quote:
       "Saya tidak hanya tertarik pada angka yang terlihat bagus. Saya ingin tahu apa yang terjadi setelah seseorang mengeklik.",
-    portrait: "Foto Rifaldy akan ditampilkan di sini.",
+    portrait: "Rifaldy Rizqya / Bandung",
     portraitAlt: "Foto Rifaldy Rizqya",
     portraitLabel: "Rifaldy Rizqya / Bandung",
     impact: "Hasil pilihan",
@@ -448,7 +448,7 @@ export const copy = {
     ending: "Mari kita bicarakan langkah berikutnya.",
     required: "Silakan ceritakan sedikit rencana Anda.",
     subject: "Mari berdiskusi",
-    metaTitle: "Rifaldy Rizqya — Full-Stack Digital Marketer",
+    metaTitle: "Rifaldy Rizqya — Digital Marketer & Web Developer",
     metaDescription:
       "Full-stack digital marketer di Bandung. Strategi pemasaran, iklan, SEO, konten, website, analisis data, dan pelaksanaan langsung.",
     notFound: "Halaman ini tidak ada di arsip.",

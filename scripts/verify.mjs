@@ -17,8 +17,10 @@ for(const locale of ['en','id']) for(const route of routes){
  assert(html.includes('field-notes-rail')&&html.includes('contact-primary'),'Missing notes/contact: '+url);
  if(route==='/') {
   assert(html.includes('Full-Stack Digital Marketer'),'Missing positioning: '+url);
-  assert((html.match(/class="tool-item"/g)||[]).length===9,'Wrong tool count: '+url);
-  assert((html.match(/class="capability-(?:core|support)"/g)||[]).length===7,'Wrong capability count: '+url);
+  assert((html.match(/class="tool-item(?: tool-primary)?"/g)||[]).length===25,'Wrong tool count: '+url);
+  assert((html.match(/class="capability-node"/g)||[]).length===7,'Wrong capability count: '+url);
+  assert(!/Head of Growth Hacking|Full-Stack Growth Hacking|A portrait of Rifaldy will live here|Selected credentials are being prepared/.test(html),'Old role or development copy: '+url);
+  assert(html.includes('career-timeline')&&html.includes('field-progress'),'Missing career or reading progress: '+url);
  }
  const ids=new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]));
  for(const [,href] of html.matchAll(/href="([^"]+)"/g)){
@@ -27,5 +29,6 @@ for(const locale of ['en','id']) for(const route of routes){
  }
 }
 assert(fs.existsSync('out/404.html'),'Missing 404');
-for(const icon of ['meta','googleads','googleanalytics','googlesearchconsole','html5','css','javascript','python','canva']) assert(fs.existsSync('out/icons/'+icon+'.svg'),'Missing tool icon: '+icon);
+for(const icon of ['meta','googleads','tiktok','googleanalytics','googletagmanager','googlesearchconsole','pagespeedinsights','ahrefs','semrush','moz','yoast','hootsuite','sproutsocial','mailchimp','html5','css','javascript','python','visualstudiocode','github','wordpress','cloudflare','canva','openai']) assert(fs.existsSync('out/icons/'+icon+'.svg'),'Missing tool icon: '+icon);
+assert(fs.existsSync('out/icons/capcut.ico'),'Missing CapCut icon');
 console.log('PASS: 12 bilingual routes, metadata, exact metrics, internal links and anchors, no test or internal content.');

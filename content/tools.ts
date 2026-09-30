@@ -1,89 +1,324 @@
 import type { Localized } from "./types";
+export const toolGroups = [
+  {
+    id: "paid",
+    label: {
+      en: "Paid media",
+      id: "Iklan berbayar",
+    },
+  },
+  {
+    id: "analytics",
+    label: {
+      en: "Analytics & tracking",
+      id: "Analisis & pelacakan",
+    },
+  },
+  {
+    id: "search",
+    label: {
+      en: "SEO & search",
+      id: "SEO & pencarian",
+    },
+  },
+  {
+    id: "social",
+    label: {
+      en: "Social / distribution",
+      id: "Sosial / distribusi",
+    },
+  },
+  {
+    id: "email",
+    label: {
+      en: "Email / campaign",
+      id: "Email / campaign",
+    },
+  },
+  {
+    id: "web",
+    label: {
+      en: "Web development",
+      id: "Pengembangan web",
+    },
+  },
+  {
+    id: "cms",
+    label: {
+      en: "CMS / infrastructure",
+      id: "CMS / infrastruktur",
+    },
+  },
+  {
+    id: "creative",
+    label: {
+      en: "Content / creative",
+      id: "Konten / kreatif",
+    },
+  },
+  {
+    id: "workflow",
+    label: {
+      en: "AI / workflow",
+      id: "AI / alur kerja",
+    },
+  },
+];
 export const stack: {
   name: string;
   icon: string;
-  category: Localized;
+  group: string;
+  primary: boolean;
   note: Localized;
 }[] = [
   {
-    name: "Meta Ads",
+    name: "Meta Ads Manager",
     icon: "meta",
-    category: { en: "Paid media", id: "Iklan berbayar" },
+    group: "paid",
+    primary: true,
     note: {
-      en: "Campaign setup, lead acquisition, and improvement.",
-      id: "Penyiapan iklan, akuisisi calon pelanggan, dan perbaikan.",
+      en: "Paid social, campaign testing and lead generation.",
+      id: "Iklan sosial, pengujian campaign, dan akuisisi calon pelanggan.",
     },
   },
   {
     name: "Google Ads",
     icon: "googleads",
-    category: { en: "Search advertising", id: "Iklan pencarian" },
+    group: "paid",
+    primary: true,
     note: {
-      en: "Search campaigns, leads, and campaign optimization.",
-      id: "Campaign pencarian, calon pelanggan, dan perbaikan iklan.",
+      en: "Search campaigns, lead acquisition and optimization.",
+      id: "Campaign pencarian, akuisisi calon pelanggan, dan optimasi.",
+    },
+  },
+  {
+    name: "TikTok Ads",
+    icon: "tiktok",
+    group: "paid",
+    primary: false,
+    note: {
+      en: "Paid distribution and creative testing.",
+      id: "Distribusi berbayar dan pengujian materi kreatif.",
     },
   },
   {
     name: "Google Analytics 4",
     icon: "googleanalytics",
-    category: { en: "Analytics", id: "Analisis" },
+    group: "analytics",
+    primary: true,
     note: {
-      en: "Understand website activity and what happens after a click.",
-      id: "Memahami aktivitas website dan proses setelah klik.",
+      en: "Traffic, acquisition and performance measurement.",
+      id: "Analisis traffic, akuisisi, dan pengukuran performa.",
+    },
+  },
+  {
+    name: "Google Tag Manager",
+    icon: "googletagmanager",
+    group: "analytics",
+    primary: true,
+    note: {
+      en: "Organize tags, events and conversion tracking.",
+      id: "Mengatur tag, peristiwa, dan pelacakan konversi.",
     },
   },
   {
     name: "Google Search Console",
     icon: "googlesearchconsole",
-    category: { en: "SEO", id: "SEO" },
+    group: "analytics",
+    primary: true,
     note: {
-      en: "Review search visibility, queries, and organic performance.",
-      id: "Melihat visibilitas, kata pencarian, dan performa organik.",
+      en: "Search visibility, queries and organic performance.",
+      id: "Visibilitas pencarian, kueri, dan performa organik.",
+    },
+  },
+  {
+    name: "Google PageSpeed Insights",
+    icon: "pagespeedinsights",
+    group: "analytics",
+    primary: false,
+    note: {
+      en: "Review loading speed and page experience.",
+      id: "Meninjau kecepatan dan pengalaman halaman.",
+    },
+  },
+  {
+    name: "Ahrefs",
+    icon: "ahrefs",
+    group: "search",
+    primary: true,
+    note: {
+      en: "Keyword research and search opportunities.",
+      id: "Riset kata kunci dan peluang pencarian.",
+    },
+  },
+  {
+    name: "SEMrush",
+    icon: "semrush",
+    group: "search",
+    primary: true,
+    note: {
+      en: "Search research and competitive context.",
+      id: "Riset pencarian dan konteks persaingan.",
+    },
+  },
+  {
+    name: "Moz",
+    icon: "moz",
+    group: "search",
+    primary: false,
+    note: {
+      en: "Search research and site review.",
+      id: "Riset pencarian dan peninjauan situs.",
+    },
+  },
+  {
+    name: "Yoast SEO",
+    icon: "yoast",
+    group: "search",
+    primary: false,
+    note: {
+      en: "On-page SEO and publishing checks.",
+      id: "SEO halaman dan pengecekan sebelum publikasi.",
+    },
+  },
+  {
+    name: "Hootsuite",
+    icon: "hootsuite",
+    group: "social",
+    primary: false,
+    note: {
+      en: "Content scheduling and social distribution.",
+      id: "Penjadwalan konten dan distribusi media sosial.",
+    },
+  },
+  {
+    name: "Sprout Social",
+    icon: "sproutsocial",
+    group: "social",
+    primary: false,
+    note: {
+      en: "Social publishing and performance review.",
+      id: "Publikasi sosial dan peninjauan performa.",
+    },
+  },
+  {
+    name: "Mailchimp",
+    icon: "mailchimp",
+    group: "email",
+    primary: false,
+    note: {
+      en: "Email campaigns and audience communication.",
+      id: "Campaign email dan komunikasi audiens.",
     },
   },
   {
     name: "HTML",
     icon: "html5",
-    category: { en: "Web structure", id: "Struktur web" },
+    group: "web",
+    primary: true,
     note: {
-      en: "Build clear, accessible page structure.",
-      id: "Membuat struktur halaman yang jelas dan mudah diakses.",
+      en: "Clear, accessible page structure.",
+      id: "Struktur halaman yang jelas dan mudah diakses.",
     },
   },
   {
     name: "CSS",
     icon: "css",
-    category: { en: "Web presentation", id: "Tampilan web" },
+    group: "web",
+    primary: true,
     note: {
-      en: "Responsive layouts, visual details, and interaction.",
-      id: "Tata letak responsif, detail visual, dan interaksi.",
+      en: "Responsive layouts and visual details.",
+      id: "Tata letak responsif dan detail visual.",
     },
   },
   {
     name: "JavaScript",
     icon: "javascript",
-    category: { en: "Web interaction", id: "Interaksi web" },
+    group: "web",
+    primary: true,
     note: {
-      en: "Connect page behavior with useful interactions.",
-      id: "Membuat halaman lebih interaktif dan berguna.",
+      en: "Useful interactions and page behavior.",
+      id: "Interaksi dan perilaku halaman yang berguna.",
     },
   },
   {
     name: "Python",
     icon: "python",
-    category: { en: "Data", id: "Data" },
+    group: "web",
+    primary: false,
     note: {
-      en: "Prepare and explore data for practical analysis.",
-      id: "Menyiapkan dan membaca data untuk kebutuhan analisis.",
+      en: "Prepare and analyze data.",
+      id: "Menyiapkan dan menganalisis data.",
+    },
+  },
+  {
+    name: "Visual Studio Code",
+    icon: "visualstudiocode",
+    group: "web",
+    primary: false,
+    note: {
+      en: "Build, edit and review website code.",
+      id: "Membangun, menyunting, dan meninjau kode website.",
+    },
+  },
+  {
+    name: "GitHub",
+    icon: "github",
+    group: "web",
+    primary: false,
+    note: {
+      en: "Version control and code collaboration.",
+      id: "Kontrol versi dan kolaborasi kode.",
+    },
+  },
+  {
+    name: "WordPress",
+    icon: "wordpress",
+    group: "cms",
+    primary: false,
+    note: {
+      en: "Manage site content and publishing.",
+      id: "Mengelola konten situs dan publikasi.",
+    },
+  },
+  {
+    name: "Cloudflare",
+    icon: "cloudflare",
+    group: "cms",
+    primary: false,
+    note: {
+      en: "Website delivery and infrastructure.",
+      id: "Distribusi website dan infrastruktur.",
     },
   },
   {
     name: "Canva",
     icon: "canva",
-    category: { en: "Creative support", id: "Dukungan kreatif" },
+    group: "creative",
+    primary: true,
     note: {
-      en: "Prepare campaign visuals and everyday content.",
-      id: "Menyiapkan visual campaign dan konten sehari-hari.",
+      en: "Campaign visuals and everyday content.",
+      id: "Visual campaign dan konten sehari-hari.",
+    },
+  },
+  {
+    name: "CapCut",
+    icon: "capcut",
+    group: "creative",
+    primary: false,
+    note: {
+      en: "Practical video and creative editing.",
+      id: "Editing video dan materi kreatif sesuai kebutuhan.",
+    },
+  },
+  {
+    name: "ChatGPT",
+    icon: "openai",
+    group: "workflow",
+    primary: false,
+    note: {
+      en: "Support research, drafting and daily workflows.",
+      id: "Membantu riset, penyusunan draf, dan pekerjaan sehari-hari.",
     },
   },
 ];

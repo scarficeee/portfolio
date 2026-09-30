@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import type { Locale } from "@/content/types";
 import "@/styles/globals.css";
 import "@/styles/professional.css";
+import "@/styles/master.css";
 export function Root({
   locale,
   children,

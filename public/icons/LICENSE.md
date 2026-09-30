@@ -28,3 +28,5 @@ For these and/or other purposes and motivations, and without any expectation of 
     4. Affirmer understands and acknowledges that Creative Commons is not a party to this document and has no duty or obligation with respect to this CC0 or use of the Work.
 
 For more information, please see <https://creativecommons.org/publicdomain/zero/1.0>.
+
+Additional icons: Simple Icons 16.33.0; VS Code and OpenAI from 11.15.0 (CC0). Ahrefs Safari icon from static.ahrefs.com; Moz wordmark from moz.com; Sprout Social favicon from media.sproutsocial.com; CapCut favicon from its official capcutstatic.com host. These brand marks identify the tools used; all trademarks belong to their owners. Retrieved 30 September 2026.

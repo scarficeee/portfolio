@@ -1,7 +1,8 @@
 import type { Locale } from "@/content/types";
 import { credentials } from "@/content/credentials";
 import { projects } from "@/content/projects";
-import { experience } from "@/content/identity";
+import { Career } from "./Career";
+import { CapabilityMap } from "./CapabilityMap";
 import { text, localPath } from "@/content/copy";
 import { Site, CaseLink, Metrics } from "./Site";
 import { Tools } from "./Tools";
@@ -217,88 +218,8 @@ export function Home({ locale }: { locale: Locale }) {
           ))}
         </ol>
       </section>
-      <section className="experience section" id="experience">
-        <div className="section-heading">
-          <p className="eyebrow">{t.experience}</p>
-          <h2>
-            {locale === "en"
-              ? "The work, and the roles behind it."
-              : "Pekerjaan dan peran di baliknya."}
-          </h2>
-        </div>
-        <div className="experience-priority">
-          {projects
-            .filter((p) => p.role)
-            .map((p) => (
-              <a key={p.slug} href={localPath(locale, `/work/${p.slug}/`)}>
-                <strong>{p.company}</strong>
-                <span>{p.role![locale]}</span>
-                <small>{p.period}</small>
-                <b aria-hidden="true">↗</b>
-              </a>
-            ))}
-        </div>
-        <details className="older-experience">
-          <summary>{t.older}</summary>
-          {experience
-            .filter((e) => !e.slug)
-            .map((e) => (
-              <div key={e.name}>
-                <strong>{e.name}</strong>
-                <span>
-                  {locale === "id"
-                    ? (
-                        {
-                          "Web Developer & Growth Hacking Specialist":
-                            "Web Developer & Spesialis Growth Hacking",
-                          "Copywriter & Python Data Analyst":
-                            "Penulis Teks & Analis Data Python",
-                          "Tour Organizer and Operational":
-                            "Pengelolaan Tur & Operasional",
-                          "Travel industry experience":
-                            "Pengalaman industri perjalanan",
-                          "Growth Hacking": "Growth Hacking",
-                        } as Record<string, string>
-                      )[e.role]
-                    : e.role}
-                </span>
-              </div>
-            ))}
-        </details>
-      </section>
-      <section className="capabilities section" id="capabilities">
-        <div className="section-heading">
-          <p className="eyebrow">{t.capabilities}</p>
-          <h2>
-            {locale === "en"
-              ? "Marketing at the core. Hands-on across the stack."
-              : "Berpusat pada pemasaran. Terlibat langsung di setiap tahap."}
-          </h2>
-          <p>
-            {locale === "en"
-              ? "Strategy and acquisition lead the work. Web, search, content, and data connect the pieces. Creative editing and on-camera content are practical support when a campaign needs them."
-              : "Strategi dan akuisisi menjadi inti pekerjaan saya. Web, pencarian, konten, dan data menghubungkan tiap bagian. Editing kreatif dan konten di depan kamera menjadi dukungan praktis saat campaign membutuhkannya."}
-          </p>
-        </div>
-        <div className="capability-list">
-          {t.capabilityGroups.map(([name, items], i) => (
-            <div
-              key={String(name)}
-              className={i < 2 ? "capability-core" : "capability-support"}
-            >
-              <h3>
-                <span>0{i + 1}</span>
-                {name as string}
-              </h3>
-              <ul>
-                {(items as string[]).map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
+      <Career locale={locale} />
+      <CapabilityMap locale={locale} />
       <Tools locale={locale} />
       <section className="archive section" id="archive">
         <div className="section-heading">
@@ -325,30 +246,32 @@ export function Home({ locale }: { locale: Locale }) {
             <h3>{t.languages}</h3>
             <p>{t.languageNames}</p>
           </div>
-          <div>
-            <h3>{t.credentials}</h3>
-            {credentials.length ? (
-              <ul>
-                {credentials.map((c) => (
-                  <li key={c.title.en}>
-                    {c.url ? (
-                      <a href={c.url} target="_blank" rel="noreferrer">
-                        {c.title[locale]} ↗
-                      </a>
-                    ) : (
-                      c.title[locale]
-                    )}
-                    <small>
-                      {c.issuer}
-                      {c.year ? ` / ${c.year}` : ""}
-                    </small>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>{t.credentialsEmpty}</p>
-            )}
-          </div>
+          {credentials.length > 0 && (
+            <div>
+              <h3>{t.credentials}</h3>
+              {credentials.length ? (
+                <ul>
+                  {credentials.map((c) => (
+                    <li key={c.title.en}>
+                      {c.url ? (
+                        <a href={c.url} target="_blank" rel="noreferrer">
+                          {c.title[locale]} ↗
+                        </a>
+                      ) : (
+                        c.title[locale]
+                      )}
+                      <small>
+                        {c.issuer}
+                        {c.year ? ` / ${c.year}` : ""}
+                      </small>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>{t.credentialsEmpty}</p>
+              )}
+            </div>
+          )}
         </div>
       </section>
     </Site>

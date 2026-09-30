@@ -25,8 +25,10 @@ The production website is exported to `out/`. Publish that folder, not the sourc
 
 - `content/projects.ts`: the single source of project facts, numbers, roles, dates, story copy and documents.
 - `content/copy.ts`: EN/ID navigation, profile, homepage, labels, forms and empty states.
-- `content/identity.ts`: contact information and earlier experience.
-- `content/tools.ts`: the nine confirmed tools, icons, and English/Indonesian usage notes.
+- `content/identity.ts`: contact information.
+- `content/career.ts`: portfolio-facing career titles, localized descriptions, optional periods and case links. Missing dates remain null.
+- `content/historical.ts`: unpublished editorial reference, including historical claims that need separate confirmation. It is not imported by the website.
+- `content/tools.ts`: 25 owner-confirmed tools in nine groups, core emphasis, icons, and English/Indonesian usage notes.
 - `content/types.ts`: the content schema and allowed fields.
 - `components/Home.tsx`: homepage composition.
 - `components/Case.tsx`: shared case-study layout.
@@ -36,8 +38,12 @@ The production website is exported to `out/`. Publish that folder, not the sourc
 - `components/Contact.tsx`: contact and reviewable email brief.
 - `components/FieldNotes.tsx`: contextual desktop notes, with inline summaries on smaller screens. Project scope and metrics come directly from project data; evidence links appear only when a matching document exists.
 - `components/Tools.tsx`: monochrome tool index. Notes remain readable on touch devices.
+- `components/CapabilityMap.tsx`: seven keyboard-selectable capabilities around the marketing/growth core; a readable touch layout replaces the orbit on small screens.
+- `components/Career.tsx`: compact career timeline and progression strip.
+- `components/FieldNotes.tsx`: scroll-aware section/project context, percentage reading line, case index and conditional evidence links. The rail is hidden below 1280px; case notes remain inline on tablets and are omitted on mobile.
 - `styles/globals.css`: visual system and responsive layouts. Tailwind is also available in component class names.
 - `styles/professional.css`: final spacing, profile, calmer typography, charts and interaction refinements, loaded after the visual system.
+- `styles/master.css`: capability map, timeline, expanded tools and refined contextual rail. Loaded last.
 - `app/(en)` and `app/(id)`: small route wrappers. Both languages share all layout components.
 
 English is at `/` and `/work/<slug>/`. Indonesian is at `/id/` and `/id/work/<slug>/`. The language switch keeps the current project and anchor, restores the reading position where practical, and saves the preference locally. Internal links keep the active language; a direct URL always respects its explicit language. Root URLs default to English.
@@ -54,7 +60,7 @@ Place the real photo at:
 
 `public/media/profile/portrait.webp`
 
-Use a 4:5 image with the face near the upper middle. Replace the file under the same name to update it; no component edits are needed. The crop is controlled by `.portrait-media img` in styles/globals.css. If the file is missing, the site displays a designed placeholder. Rebuild before publishing changes.
+Use a 4:5 image with the face near the upper middle. Replace the file under the same name to update it; no component edits are needed. The crop is controlled by `.portrait-media img` in styles/globals.css. If the file is missing, the site displays a typographic RR identity panel. No synthetic portrait is used. Rebuild before publishing changes.
 
 ## Add project documentation
 
@@ -107,11 +113,11 @@ To add a project, copy a record in content/projects.ts, give it a unique slug an
 
 Updated figures are centralized in projects.ts: Japanect +120% awareness, +80% leads, +50% organic growth, +40% bookings; Kurnia +1,010% awareness and +100% leads. Reporting periods and original evidence are still awaiting your files. They are not presented as independently verified analytics.
 
-## Final refinement verification — 30 September 2026
+## Master revision verification — 30 September 2026
 
 - `npm install`, `npm run dev`, `npm run build`, `npm run typecheck`, and `npm run verify` passed.
 - EN/ID homepages checked at 1440, 1366, 1280, 1024, 820, 768, 430, 390, 375, 360 and 320px; no horizontal overflow. All five case studies checked in both languages at desktop, tablet and 320px.
-- Confirmed seven capability groups, nine tool icons, reading themes, language switching, contact review, chart values and contextual rails.
+- Confirmed the seven-node capability map and keyboard selection, 25 tools in nine groups, corrected career titles, reading themes, language switching, contact review, chart values and scroll-aware contextual rails.
 - Gallery tested locally with temporary, clearly labelled fixtures: curated four-item view, six-item archive, desktop/mobile lightbox, navigation, zoom, Escape, focus restoration, and missing-image state. Fixtures were removed before the production build.
 - No real portrait or project documentation files were supplied in the current source. The portrait slot and documentation empty states remain intentional; real portrait cropping cannot be verified until that asset is added.
 
