@@ -48,6 +48,7 @@ export const career: {
       id: "Jun 2023 – Jan 2024",
     },
     start: "2023-06",
+    slug: "japantrips",
     overlap: {
       en: "Parallel responsibilities · Jul–Dec 2023",
       id: "Tanggung jawab paralel · Jul–Des 2023",
@@ -72,6 +73,7 @@ export const career: {
       id: "Jul 2023 – Des 2023",
     },
     start: "2023-07",
+    slug: "japantrips",
     overlap: {
       en: "Parallel responsibilities · Jul–Dec 2023",
       id: "Tanggung jawab paralel · Jul–Des 2023",
@@ -96,6 +98,7 @@ export const career: {
       id: "Des 2023 – Jan 2024",
     },
     start: "2023-12",
+    slug: "adventure-travel-group",
   },
   {
     name: "Vertex Pharmaceuticals",

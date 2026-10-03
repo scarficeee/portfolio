@@ -4,11 +4,13 @@ import { projects } from "@/content/projects";
 import { Career } from "./Career";
 import { CapabilityMap } from "./CapabilityMap";
 import { text, localPath, periodLabel } from "@/content/copy";
-import { Site, CaseLink, Metrics } from "./Site";
+import { Site, CaseLink } from "./Site";
+import { ImpactGraphic } from "./ImpactGraphic";
 import { Tools } from "./Tools";
 import { WorkIndex } from "./WorkIndex";
 import { SectionArt } from "./SectionArt";
 import { Media } from "./Media";
+import { Certificates } from "./Certificates";
 export function Home({ locale }: { locale: Locale }) {
   const t = text(locale);
   return (
@@ -19,25 +21,63 @@ export function Home({ locale }: { locale: Locale }) {
           <span>{t.role}</span>
           <span>{t.location}</span>
         </div>
-        <h1>
-          <span>RIFALDY</span>
-          <span>
-            RIZQYA<span className="red-dot">.</span>
-          </span>
-        </h1>
-        <div className="intro-bottom">
-          <h2>
-            Growth,
-            <br />
-            <em>by design.</em>
-          </h2>
-          <div>
-            <p>{t.intro}</p>
-            <p className="caption">{t.focus}</p>
-            <a className="text-link" href="#work">
-              {t.explore} ↓
-            </a>
+        <div className="intro-layout">
+          <div className="intro-copy">
+            <h1>
+              <span>RIFALDY</span>
+              <span>
+                RIZQYA<span className="red-dot">.</span>
+              </span>
+            </h1>
+            <div className="intro-bottom">
+              <h2>
+                Growth,
+                <br />
+                <em>by design.</em>
+              </h2>
+              <div>
+                <p>{t.intro}</p>
+                <p className="caption">{t.focus}</p>
+                <div className="intro-actions">
+                  <a className="intro-cta" href="#contact">
+                    {t.projectCta}<span aria-hidden="true">↗</span>
+                  </a>
+                  <a className="text-link intro-secondary" href="#work">
+                    {t.explore}<span aria-hidden="true"> ↓</span>
+                  </a>
+                </div>
+                <a className="intro-hiring" href="/downloads/rifaldy-rizqya-cv.pdf" download>
+                  {t.hiringCta}<span aria-hidden="true"> ↗</span>
+                </a>
+                <p className="intro-proof">{t.introProof}</p>
+              </div>
+            </div>
           </div>
+          <figure className="intro-visual">
+            <div className="intro-photo-frame">
+              <Media
+                src="/media/profile/portrait.webp"
+                alt={t.portraitAlt}
+                fallback={t.portrait}
+                portrait
+                eager
+              />
+            </div>
+            <figcaption className="intro-visual-caption">
+              <span>{locale === "en" ? "STRATEGY / CAMPAIGNS / WEB / DATA" : "STRATEGI / CAMPAIGN / WEB / DATA"}</span>
+              <span>01 — 04</span>
+            </figcaption>
+            <a
+              className="intro-featured-proof"
+              href={localPath(locale, "/work/jaya-utama-perkasa/#case-comparison")}
+            >
+              <span className="eyebrow">{locale === "en" ? "FEATURED TRANSFORMATION · JUP" : "TRANSFORMASI UNGGULAN · JUP"}</span>
+              <span className="intro-featured-period">{locale === "en" ? "2 years with my integrated strategy" : "2 tahun dengan strategi terintegrasi saya"}</span>
+              <span className="intro-proof-metric"><strong>3.8M</strong><small>{locale === "en" ? "Views" : "Tayangan"}</small></span>
+              <span className="intro-proof-metric"><strong>2.6M</strong><small>{locale === "en" ? "Reach" : "Jangkauan"}</small></span>
+              <span className="intro-proof-link">{locale === "en" ? "Explore the case" : "Lihat studi kasus"} <span aria-hidden="true">↗</span></span>
+            </a>
+          </figure>
         </div>
       </section>
       <section className="profile section" id="profile">
@@ -59,30 +99,6 @@ export function Home({ locale }: { locale: Locale }) {
           </dl>
           <blockquote>{t.quote}</blockquote>
         </div>
-        <figure className="portrait">
-          <Media
-            src="/media/profile/portrait.webp"
-            alt={t.portraitAlt}
-            fallback={t.portrait}
-            portrait
-          />
-          <figcaption>{t.portraitLabel}</figcaption>
-          <a
-            className="portrait-impact"
-            href={localPath(locale, "/work/japanect/#results")}
-          >
-            <span>{projects[0].company}</span>
-            <div>
-              {projects[0].metrics.slice(0, 2).map((m) => (
-                <span key={m.label}>
-                  <strong>{m.value}</strong>
-                  <small>{t.metricLabels[m.label]}</small>
-                </span>
-              ))}
-            </div>
-            <span>{t.viewCase} ↗</span>
-          </a>
-        </figure>
       </section>
       <section className="impact section" id="impact">
         <SectionArt variant="index" />
@@ -90,16 +106,15 @@ export function Home({ locale }: { locale: Locale }) {
           <p className="eyebrow">{t.impact}</p>
           <h2>{t.impactIntro}</h2>
         </div>
-        {projects
-          .filter((p) => p.metrics.length)
-          .map((p) => (
-            <div className="impact-record" key={p.slug}>
+        {projects.filter((p) => p.slug === "jaya-utama-perkasa").map((p) => (
+            <div className="impact-record" key={p.slug} data-project={p.slug}>
               <div className="impact-company">
                 <h3>{p.company}</h3>
+                {p.comparison && <span className="impact-featured-label">{locale === "en" ? "Featured transformation" : "Transformasi unggulan"}</span>}
                 {p.period && <span>{periodLabel(p.period, locale)}</span>}
                 <CaseLink project={p} locale={locale} />
               </div>
-              <Metrics project={p} locale={locale} />
+              <ImpactGraphic project={p} locale={locale} />
             </div>
           ))}
       </section>
@@ -107,7 +122,7 @@ export function Home({ locale }: { locale: Locale }) {
       <section className="approach section" id="approach">
         <SectionArt variant="journey" />
         <div className="section-heading">
-          <p className="eyebrow">Growth, by design.</p>
+          <p className="eyebrow">Strategy &amp; execution.</p>
           <h2>{t.approach}</h2>
           <p>{t.approachIntro}</p>
         </div>
@@ -141,6 +156,7 @@ export function Home({ locale }: { locale: Locale }) {
       <Career locale={locale} />
       <CapabilityMap locale={locale} />
       <Tools locale={locale} />
+      <Certificates locale={locale} />
       <section className="archive section" id="archive">
         <SectionArt variant="archive" />
         <div className="section-heading">

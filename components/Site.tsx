@@ -62,7 +62,7 @@ export function Metrics({
                   `/work/${project.slug}/#document-${metric.evidenceId}`,
                 )}
               >
-                {t.evidenceLink} ↗
+                {t.documentation} ↗
               </a>
             )}
         </div>

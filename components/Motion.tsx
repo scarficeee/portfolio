@@ -43,7 +43,7 @@ export function Motion() {
       );
       document
         .querySelectorAll<HTMLElement>(
-          ".section-heading,.profile-copy,.portrait,.work-index-row,.career-evolution,.career-timeline>li,.capability-map,.performance-graphic,.impact-record,.contact-composition,.archive-links,.section-art",
+          ".section-heading,.profile-copy,.portrait,.work-index-row,.career-evolution,.career-timeline>li,.capability-map,.performance-graphic,.impact-record,.contact-composition,.archive-links,.section-art,.certificate-empty-composition",
         )
         .forEach((node) => {
           node.classList.add("motion-item");

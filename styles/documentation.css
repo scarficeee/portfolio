@@ -2,9 +2,53 @@
 html {
   scrollbar-gutter: stable;
 }
+.case-documentation {
+  background-image: none;
+}
+.case-documentation .section-heading {
+  margin-bottom: 24px;
+}
+.case-documentation .section-heading h2 {
+  font-size: clamp(28px, 3vw, 42px);
+}
+.case-documentation .documentation-empty {
+  padding: 18px 20px;
+  gap: 14px;
+  border: 1px solid var(--rule);
+  border-left: 2px solid var(--red);
+  font-size: 14px;
+}
+.case-documentation .documentation-empty > span {
+  font-size: 22px;
+}
+.documentation-empty p {
+  margin: 0;
+}
 .document-composition {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   align-items: start;
   gap: 36px 24px;
+}
+.document-composition :where(.document-item) {
+  grid-column: span 2;
+  min-width: 0;
+}
+.document-composition :where(.document-0) {
+  grid-column: 1 / -1;
+}
+.document-composition :where(.document-1, .document-2) {
+  grid-column: span 3;
+}
+.document-composition:where([data-count="2"]) :where(.document-1),
+.document-composition :where(.document-archive:last-child:nth-child(3n + 1)) {
+  grid-column: 1 / -1;
+}
+.document-composition
+  :where(
+    .document-archive:nth-last-child(2):nth-child(3n + 1),
+    .document-archive:last-child:nth-child(3n + 2)
+  ) {
+  grid-column: span 3;
 }
 .document-composition .document-media {
   position: relative;
@@ -13,9 +57,43 @@ html {
   overflow: hidden;
   background: var(--stone);
 }
-.document-composition .document-0 .document-media,
-.document-composition .document-3 .document-media {
+.document-composition .document-0 .document-media {
+  aspect-ratio: 3/2;
+  max-height: 580px;
+}
+.document-composition .document-0.orientation-dashboard .document-media {
+  aspect-ratio: 16/10;
+}
+.document-composition .document-0.orientation-wide .document-media {
   aspect-ratio: 16/9;
+}
+.document-composition .image-open {
+  border: 1px solid var(--rule);
+  padding: 8px;
+  background: var(--off-white);
+  cursor: zoom-in;
+  transition: border-color 180ms ease;
+}
+.document-composition .image-open:hover,
+.document-composition .image-open:focus-visible {
+  border-color: var(--red);
+}
+.document-composition .document-0.orientation-portrait {
+  width: min(100%, 420px);
+  justify-self: center;
+}
+.document-composition .document-0.orientation-portrait .document-media {
+  aspect-ratio: 4/5;
+}
+.document-composition .document-0.orientation-square {
+  width: min(100%, 580px);
+  justify-self: center;
+}
+.document-composition .document-0.orientation-square .document-media {
+  aspect-ratio: 1;
+}
+.document-composition .orientation-portrait .document-media img {
+  object-fit: contain;
 }
 .document-composition .document-media img {
   position: absolute;
@@ -77,6 +155,7 @@ html {
   display: flex;
   flex-direction: column;
   padding: 14px 20px 10px;
+  overflow-y: auto;
 }
 .lightbox-stage {
   flex: 1;
@@ -139,7 +218,7 @@ html {
   max-width: 80ch;
 }
 .lightbox-meta .caption {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.5;
 }
 .lightbox-controls {
@@ -178,9 +257,26 @@ html {
   }
 }
 @media (max-width: 1024px) {
+  .document-composition :where(.document-item:not(.document-0)) {
+    grid-column: span 3;
+  }
+  .document-composition :where(.document-item:last-child:nth-child(even)) {
+    grid-column: 1 / -1;
+  }
   .lightbox {
     width: 88vw;
     max-width: 88vw;
+  }
+}
+@media (max-width: 700px) {
+  .document-composition {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .document-composition .document-item {
+    grid-column: 1 / -1;
+  }
+  .document-composition .orientation-dashboard .document-media {
+    aspect-ratio: 16/10;
   }
 }
 @media (max-width: 600px) {

@@ -5,6 +5,9 @@ import "@/styles/professional.css";
 import "@/styles/master.css";
 import "@/styles/motion.css";
 import "@/styles/documentation.css";
+import "@/styles/case-insights.css";
+import "@/styles/certificates.css";
+import "@/styles/premium.css";
 import { Motion } from "./Motion";
 import { openingScript } from "./motion-preferences";
 export function Root({

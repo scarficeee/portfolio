@@ -167,7 +167,7 @@ export function FieldNotes({
               `/work/${p.slug}/#document-${evidence.evidenceId}`,
             )}
           >
-            {t.evidenceLink} ↗
+            {t.documentation} ↗
           </a>
         )}
         {!p && context !== "contact" && (
@@ -184,10 +184,10 @@ export function FieldNotes({
               {en ? "Selected impact / Japanect" : "Hasil pilihan / Japanect"}
             </span>
             <strong>
-              +120% <small>{t.metricLabels.awareness}</small>
+              +60% <small>{t.metricLabels.awareness}</small>
             </strong>
             <strong>
-              +80% <small>{t.metricLabels.leads}</small>
+              +40% <small>{t.metricLabels.leads}</small>
             </strong>
           </div>
         )}

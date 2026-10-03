@@ -6,6 +6,13 @@ import { PerformanceGraphic } from "./PerformanceGraphic";
 import { FieldNotes } from "./FieldNotes";
 import { SectionArt } from "./SectionArt";
 import { Documentation } from "./Documentation";
+import { CaseInsights } from "./CaseInsights";
+import { ImpactGraphic } from "./ImpactGraphic";
+import documentationPreviews from "@/.generated/documentation-media.json";
+import {
+  resolveDocumentation,
+  type DocumentationPreviews,
+} from "@/content/documentation";
 export function Case({
   project: p,
   locale,
@@ -13,6 +20,13 @@ export function Case({
   project: Project;
   locale: Locale;
 }) {
+  p = {
+    ...p,
+    documentation: resolveDocumentation(
+      p,
+      documentationPreviews as DocumentationPreviews,
+    ),
+  };
   const t = text(locale),
     next =
       projects[
@@ -25,8 +39,6 @@ export function Case({
     ["strategy", t.strategy, p.strategy],
     ["execution", t.execution, p.execution],
   ] as const;
-  const docs = p.documentation.filter((d) => !d.evidence),
-    evidence = p.documentation.filter((d) => d.evidence);
   return (
     <Site locale={locale} project={p} className={"case case-" + p.slug}>
       <header className="case-intro section">
@@ -72,8 +84,9 @@ export function Case({
               </a>
             ))}
           {p.metrics.length > 0 && <a href="#results">{t.results}</a>}
+          {p.comparison && <a href="#case-comparison">{locale === "en" ? "Before / after" : "Sebelum / sesudah"}</a>}
+          {p.insights && <a href="#insights">{locale === "en" ? "Insights" : "Insight"}</a>}
           <a href="#documentation">{t.documentation}</a>
-          <a href="#evidence">{t.evidence}</a>
         </nav>
       </header>
       <div className="case-body section">
@@ -101,16 +114,35 @@ export function Case({
             <PerformanceGraphic project={p} locale={locale} />
           </section>
         )}
+        {p.comparison && (
+          <section className="case-comparison" id="case-comparison">
+            <p className="eyebrow">{locale === "en" ? "Before / after" : "Sebelum / sesudah"}</p>
+            <ImpactGraphic project={p} locale={locale} variant="light" />
+          </section>
+        )}
+        {p.insights && <CaseInsights insights={p.insights} locale={locale} />}
         <section className="case-documentation" id="documentation">
           <div className="section-heading">
             <p className="eyebrow">{t.documentation}</p>
             <h2>{t.archiveIntro}</h2>
           </div>
-          <Documentation items={docs} project={p.company} locale={locale} />
-        </section>
-        <section className="case-documentation" id="evidence">
-          <h2>{t.evidence}</h2>
-          <Documentation items={evidence} project={p.company} locale={locale} />
+          <Documentation
+            items={p.documentation}
+            project={p.company}
+            locale={locale}
+            previews={Object.fromEntries(
+              p.documentation.flatMap((item) =>
+                (item.images || (item.image ? [item.image] : [])).flatMap(
+                  (src) => {
+                    const preview = (
+                      documentationPreviews as DocumentationPreviews
+                    )[src];
+                    return preview ? [[src, preview]] : [];
+                  },
+                ),
+              ),
+            )}
+          />
         </section>
         {p.reflection && (
           <section className="case-chapter" id="reflection">

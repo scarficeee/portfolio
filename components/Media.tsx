@@ -5,11 +5,17 @@ export function Media({
   alt,
   fallback,
   portrait = false,
+  srcSet,
+  sizes,
+  eager = false,
 }: {
   src: string;
   alt: string;
   fallback: string;
   portrait?: boolean;
+  srcSet?: string;
+  sizes?: string;
+  eager?: boolean;
 }) {
   const [loaded, setLoaded] = useState(false),
     [failed, setFailed] = useState(false),
@@ -34,9 +40,12 @@ export function Media({
         <img
           ref={ref}
           src={src}
+          srcSet={srcSet}
+          sizes={sizes}
           alt={alt}
           style={{ opacity: loaded ? 1 : 0 }}
-          loading={portrait ? "eager" : "lazy"}
+          loading={portrait || eager ? "eager" : "lazy"}
+          decoding="async"
           onLoad={() => setLoaded(true)}
           onError={() => setFailed(true)}
         />
@@ -44,7 +53,7 @@ export function Media({
       {!loaded && (
         <div className="media-placeholder">
           <span aria-hidden="true">{portrait ? "R / R" : "—"}</span>
-          <p>{fallback}</p>
+          {failed && <p>{fallback}</p>}
         </div>
       )}
     </div>

@@ -33,7 +33,7 @@ export function metadata(locale: Locale, project?: Project): Metadata {
           url: "/social-cover.jpg",
           width: 1200,
           height: 630,
-          alt: "Growth, by design. — Rifaldy Rizqya",
+          alt: "Rifaldy Rizqya — Full-Stack Digital Marketer",
         },
       ],
     },

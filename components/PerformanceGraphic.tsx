@@ -34,7 +34,7 @@ export function PerformanceGraphic({
             {metric.evidenceId &&
               project.documentation.some((document) => document.id === metric.evidenceId) && (
                 <a className="caption performance-evidence" href={localPath(locale, `/work/${project.slug}/#document-${metric.evidenceId}`)}>
-                  {t.evidenceLink} ↗
+                  {t.documentation} ↗
                 </a>
               )}
           </li>

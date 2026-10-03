@@ -8,3 +8,5 @@ out/
 /private/
 /raw/
 *.log
+.generated/
+public/media/_previews/

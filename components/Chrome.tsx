@@ -5,7 +5,7 @@ import { text, localPath } from "@/content/copy";
 import { Dialog } from "./Dialog";
 import { Monogram } from "./Monogram";
 import { motionEnabled, markInternalNavigation } from "./motion-preferences";
-const ids = ["profile", "work", "approach", "experience", "contact"];
+const ids = ["profile", "work", "approach", "experience", "certificates", "contact"];
 export function Chrome({ locale }: { locale: Locale }) {
   const t = text(locale),
     [menu, setMenu] = useState(false),
@@ -155,7 +155,7 @@ export function Chrome({ locale }: { locale: Locale }) {
         </a>
         {nav}
         <div className="side-bottom">
-          <p>Growth, by design.</p>
+          <p>Strategy &amp; execution.</p>
           {options}
           <small>Bandung, Indonesia</small>
         </div>

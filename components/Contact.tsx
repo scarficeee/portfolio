@@ -72,14 +72,14 @@ export function Contact({ locale }: { locale: Locale }) {
                 note: identity.email,
               },
               {
-                label: "WhatsApp",
-                href: "https://wa.me/" + identity.whatsapp,
-                note: locale === "en" ? "A quick hello" : "Sapa saya langsung",
-              },
-              {
                 label: "LinkedIn",
                 href: identity.linkedin,
-                note: locale === "en" ? "Let’s connect" : "Mari terhubung",
+                note: locale === "en" ? "Professional profile" : "Profil profesional",
+              },
+              {
+                label: "WhatsApp",
+                href: "https://wa.me/" + identity.whatsapp,
+                note: locale === "en" ? "A quick message" : "Kirim pesan langsung",
               },
               {
                 label: "Instagram",

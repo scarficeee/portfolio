@@ -4,20 +4,30 @@ import type { Document, Locale } from "@/content/types";
 import { text } from "@/content/copy";
 import { Media } from "./Media";
 import { Dialog } from "./Dialog";
+import {
+  orderDocuments,
+  type DocumentationPreviews,
+} from "@/content/documentation";
 export function Documentation({
   items,
   locale,
   project,
+  previews = {},
 }: {
   items: Document[];
   locale: Locale;
   project: string;
+  previews?: DocumentationPreviews;
 }) {
   const t = text(locale),
     [all, setAll] = useState(false),
     [active, setActive] = useState<number | null>(null),
     [zoom, setZoom] = useState(false),
-    touch = useRef<number | null>(null);
+    touch = useRef<{ x: number; y: number } | null>(null),
+    stage = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    stage.current?.scrollTo({ left: 0, top: 0, behavior: "instant" });
+  }, [active, zoom]);
   useEffect(() => {
     const hash = location.hash.slice(1);
     if (items.some((item) => "document-" + item.id === hash)) {
@@ -27,14 +37,14 @@ export function Documentation({
       );
     }
   }, [items]);
-  const gallery = items.flatMap((item) =>
+  const ordered = orderDocuments(items);
+  const gallery = ordered.flatMap((item) =>
     (item.images?.length ? item.images : item.image ? [item.image] : []).map(
       (image, index) => ({ item, image, index }),
     ),
   );
-  const featured = items.filter((item) => item.featured);
-  const selected = (featured.length ? featured : items).slice(0, 4);
-  const visible = all ? items : selected;
+  const selected = ordered.slice(0, 6);
+  const visible = all ? ordered : selected;
   const move = (direction: number) => {
     setActive((value) =>
       value === null
@@ -61,10 +71,10 @@ export function Documentation({
           </button>
         )}
       </div>
-      <div className="document-composition">
+      <div className="document-composition" data-count={visible.length}>
         {visible.map((item, i) => (
           <figure
-            className={`document-item document-${i < 4 ? i : "archive"} orientation-${item.orientation || "landscape"}`}
+            className={`document-item document-${i < 3 ? i : "archive"} orientation-${item.orientation || "landscape"}`}
             id={"document-" + item.id}
             key={item.id}
             data-fit={
@@ -104,7 +114,13 @@ export function Documentation({
                   }}
                 >
                   <Media
-                    src={image}
+                    src={previews[image]?.src || image}
+                    srcSet={previews[image]?.srcSet}
+                    sizes={
+                      i === 0
+                        ? "(max-width: 700px) 90vw, (max-width: 1279px) 82vw, 940px"
+                        : "(max-width: 700px) 90vw, (max-width: 1024px) 40vw, 460px"
+                    }
                     alt={item.alt[locale]}
                     fallback={t.prepared}
                   />
@@ -121,11 +137,11 @@ export function Documentation({
             </div>
             <figcaption>
               <span className="caption">
-                {t.figure} {String(items.indexOf(item) + 1).padStart(2, "0")} /{" "}
-                {item.category[locale]}
+                {t.figure} {String(ordered.indexOf(item) + 1).padStart(2, "0")}{" "}
+                / {item.category[locale]}
               </span>
               <h3>{item.title[locale]}</h3>
-              <p>{item.caption[locale]}</p>
+              {item.caption[locale] && <p>{item.caption[locale]}</p>}
               <span className="caption">
                 {[project, item.period, item.source]
                   .filter(Boolean)
@@ -152,6 +168,8 @@ export function Documentation({
           className="lightbox"
           closeLabel={t.close}
           onKeyDown={(e) => {
+            // While zoomed, arrows pan the focused image instead of changing it.
+            if (zoom && e.target === stage.current) return;
             if (e.key === "ArrowRight") {
               e.preventDefault();
               move(1);
@@ -164,6 +182,7 @@ export function Documentation({
         >
           <div className="lightbox-content">
             <div
+              ref={stage}
               className={"lightbox-stage" + (zoom ? " zoomed" : "")}
               tabIndex={zoom ? 0 : undefined}
               aria-label={
@@ -173,12 +192,24 @@ export function Documentation({
                     : "Gambar diperbesar. Gulir untuk melihat detail."
                   : undefined
               }
-              onTouchStart={(e) => (touch.current = e.touches[0].clientX)}
+              onTouchStart={(e) =>
+                (touch.current = {
+                  x: e.touches[0].clientX,
+                  y: e.touches[0].clientY,
+                })
+              }
+              onTouchCancel={() => (touch.current = null)}
               onTouchEnd={(e) => {
-                if (touch.current === null || zoom) return;
-                const difference = e.changedTouches[0].clientX - touch.current;
-                if (Math.abs(difference) > 65) move(difference < 0 ? 1 : -1);
+                const start = touch.current;
                 touch.current = null;
+                if (!start || zoom) return;
+                const difference = e.changedTouches[0].clientX - start.x;
+                const vertical = e.changedTouches[0].clientY - start.y;
+                if (
+                  Math.abs(difference) > 65 &&
+                  Math.abs(difference) > Math.abs(vertical)
+                )
+                  move(difference < 0 ? 1 : -1);
               }}
             >
               <Media
@@ -186,15 +217,19 @@ export function Documentation({
                 src={current.image}
                 alt={current.item.alt[locale]}
                 fallback={t.unavailable}
+                eager
               />
             </div>
             <div className="lightbox-meta">
               <span className="caption">
-                FIG. {String(items.indexOf(current.item) + 1).padStart(2, "0")}{" "}
-                / {current.item.category[locale]}
+                FIG.{" "}
+                {String(ordered.indexOf(current.item) + 1).padStart(2, "0")} /{" "}
+                {current.item.category[locale]}
               </span>
               <h3>{current.item.title[locale]}</h3>
-              <p>{current.item.caption[locale]}</p>
+              {current.item.caption[locale] && (
+                <p>{current.item.caption[locale]}</p>
+              )}
               <span className="caption">
                 {[
                   project,
@@ -214,13 +249,22 @@ export function Documentation({
               <button disabled={gallery.length < 2} onClick={() => move(-1)}>
                 ← {t.previous}
               </button>
-              <span>
+              <span aria-live="polite" aria-atomic="true">
                 {active! + 1} / {gallery.length}
               </span>
               <button disabled={gallery.length < 2} onClick={() => move(1)}>
                 {t.nextImage} →
               </button>
-              <button aria-pressed={zoom} onClick={() => setZoom(!zoom)}>
+              <button
+                aria-pressed={zoom}
+                onClick={() => {
+                  setZoom(!zoom);
+                  if (!zoom)
+                    requestAnimationFrame(() =>
+                      stage.current?.focus({ preventScroll: true }),
+                    );
+                }}
+              >
                 {zoom ? t.fit : t.zoom}
               </button>
               <a href={current.image} target="_blank" rel="noreferrer">
